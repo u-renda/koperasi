@@ -318,6 +318,7 @@ $(function () {
             {
                 field: "NoAnggota",
 				title: "No Anggota",
+                filterable: false,
                 width: 100
             },
             {
@@ -325,14 +326,22 @@ $(function () {
                 width: 200
             },
             {
+                field: "Telp",
+                sortable: false,
+                filterable: false,
+                width: 100
+            },
+            {
                 field: "Kota",
+                sortable: false,
+                filterable: false,
                 width: 150
             },
             {
                 field: "Aksi",
                 sortable: false,
                 filterable: false,
-                width: 70,
+                width: 100,
                 template: "#= data.Aksi #"
             }]
         });
@@ -392,11 +401,21 @@ $(function () {
             },
             {
                 field: "Email",
+                sortable: false,
+                filterable: false,
+                width: 150
+            },
+            {
+                field: "Telp",
+                sortable: false,
+                filterable: false,
                 width: 150
             },
             {
                 field: "Username",
-                width: 150
+                sortable: false,
+                filterable: false,
+                width: 100
             },
             {
                 field: "Aksi",
@@ -457,11 +476,6 @@ $(function () {
                 width: 30
             },
             {
-                field: "NoPinjaman",
-				title: "No. Pinjaman",
-                width: 100
-            },
-            {
                 field: "NamaAnggota",
 				title: "Nama Anggota",
                 width: 100
@@ -469,12 +483,28 @@ $(function () {
             {
                 field: "TglPinjam",
 				title: "Tgl Pinjam",
+                filterable: false,
+                width: 100
+            },
+            {
+                field: "TglJatuhTempo",
+				title: "Jatuh Tempo",
+                filterable: false,
                 width: 100
             },
             {
                 field: "JumlahPinjaman",
 				title: "Jumlah Pinjaman",
+                sortable: false,
+                filterable: false,
                 width: 100
+            },
+            {
+                field: "Keterangan",
+                sortable: false,
+                filterable: false,
+                width: 100,
+                template: "#= data.Keterangan #"
             },
             {
                 field: "Aksi",
@@ -486,7 +516,7 @@ $(function () {
         });
     }
 	
-    // Pinjaman Lists
+    // Angsuran Lists
     if (document.getElementById('angsuran_lists_page') != null) {
         $("#multipleTable").kendoGrid({
             dataSource: {
@@ -535,23 +565,29 @@ $(function () {
                 width: 30
             },
             {
-                field: "NoAngsuran",
-				title: "No. Angsuran",
+                field: "Anggota",
+                sortable: false,
                 width: 100
             },
             {
                 field: "TglAngsuran",
 				title: "Tgl Angsuran",
+                sortable: false,
+                filterable: false,
                 width: 100
             },
             {
                 field: "AngsuranKe",
 				title: "Angsuran Ke",
+                sortable: false,
+                filterable: false,
                 width: 100
             },
             {
-                field: "SisaAngsuran",
-				title: "Sisa Angsuran",
+                field: "JumlahAngsuran",
+				title: "Jumlah Angsuran",
+                sortable: false,
+                filterable: false,
                 width: 100
             },
             {
@@ -561,6 +597,108 @@ $(function () {
                 width: 70,
                 template: "#= data.Aksi #"
             }]
+        });
+    }
+	
+    // Simpanan Lists
+    if (document.getElementById('simpanan_lists_page') != null) {
+        $("#multipleTable").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "simpanan_get",
+                        dataType: "json",
+                        type: "POST",
+                        data: {}
+                    }
+                },
+                schema: {
+                    data: "results",
+                    total: "total"
+                },
+                pageSize: 20,
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                cache: false
+            },
+            sortable: {
+                mode: "single",
+                allowUnsort: true
+            },
+            pageable: {
+                buttonCount: 5,
+                input: true,
+                pageSizes: true,
+                refresh: true
+            },
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Mengandung kata"
+                    }
+                }
+            },
+            selectable: "row",
+            resizable: true,
+            columns: [{
+                field: "No",
+                sortable: false,
+                filterable: false,
+                width: 20
+            },
+            {
+                field: "TipeSimpanan",
+				title: "Tipe Simpanan",
+                sortable: false,
+                filterable: false,
+                width: 100
+            },
+            {
+                field: "Anggota",
+                sortable: false,
+                filterable: false,
+                width: 100
+            },
+            {
+                field: "TglTransaksi",
+				title: "Tgl Transaksi",
+                sortable: false,
+                filterable: false,
+                width: 70
+            },
+            {
+                field: "JumlahSimpanan",
+				title: "Besar Simpanan",
+                sortable: false,
+                filterable: false,
+                width: 70
+            },
+            {
+                field: "Status",
+				title: "Keterangan",
+                sortable: false,
+                filterable: false,
+                width: 70
+            },
+            {
+                field: "Aksi",
+                sortable: false,
+                filterable: false,
+                width: 70,
+                template: "#= data.Aksi #"
+            }]
+        });
+    }
+    
+    // Akun Saya
+    if (document.getElementById('akun_saya_page') != null) {
+        $('.date-picker').datepicker({
+            orientation: "auto left",
+            format: "dd-m-yyyy",
+            autoclose: true,
+            todayHighlight: true
         });
     }
 });

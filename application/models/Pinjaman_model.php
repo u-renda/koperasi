@@ -9,6 +9,23 @@ class Pinjaman_model extends CI_Model {
     {
         parent::__construct();
     }
+	
+	function info($param)
+	{
+		$where = array();
+		if (isset($param['id_pinjaman']) == TRUE)
+		{
+			$where += array($this->table_id => $param['id_pinjaman']);
+		}
+		
+		$this->db->select($this->table_id.', '.$this->table.'.id_anggota, no_pinjaman, tgl_pinjam,
+						  jumlah_pinjaman, kali_angsuran, jumlah_angsuran, bunga, total_angsuran,
+						  '.$this->table.'.created_date, '.$this->table.'.updated_date, nama');
+        $this->db->from($this->table);
+        $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota');
+        $query = $this->db->get();
+        return $query;
+	}
     
     function lists($param)
     {
@@ -30,8 +47,9 @@ class Pinjaman_model extends CI_Model {
 		}
 		
         $this->db->select($this->table_id.', '.$this->table.'.id_anggota, no_pinjaman, tgl_pinjam,
-						  jumlah_pinjaman, kali_angsuran, jumlah_angsuran, bunga, total_angsuran,
-						  '.$this->table.'.created_date, '.$this->table.'.updated_date, nama');
+						  jumlah_pinjaman, kali_angsuran, jumlah_angsuran, bunga, tgl_jatuh_tempo,
+						  total_angsuran, status, '.$this->table.'.created_date,
+						  '.$this->table.'.updated_date, nama');
         $this->db->from($this->table);
         $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota');
         $this->db->order_by($param['order'], $param['sort']);

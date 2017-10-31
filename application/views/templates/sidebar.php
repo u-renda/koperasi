@@ -74,7 +74,7 @@
                             </li>
                             <li class="list-child">
                                 <a href="<?php echo $this->config->item('link_angsuran_lists'); ?>">
-                                     Daftar Pembayaran
+                                     Daftar Angsuran
                                 </a>
                             </li>
                         </ul>
@@ -90,11 +90,11 @@
                                      Daftar Simpanan
                                 </a>
                             </li>
-                            <li class="list-child">
-                                <a href="<?php echo $this->config->item('link_setor_ambil_lists'); ?>">
+                            <!--<li class="list-child">
+                                <a href="<?php //echo $this->config->item('link_setor_ambil_lists'); ?>">
                                      Setoran & Pengambilan
                                 </a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                     <li class="nav-parent list-parent">
@@ -118,12 +118,12 @@
                         <ul class="nav nav-children">
                             <li class="list-child">
                                 <a href="<?php echo $this->config->item('link_laporan_pinjaman'); ?>">
-                                     Laporan Peminjaman
+                                     Laporan Pinjaman
                                 </a>
                             </li>
                             <li class="list-child">
                                 <a href="<?php echo $this->config->item('link_laporan_angsuran'); ?>">
-                                     Laporan Pembayaran
+                                     Laporan Angsuran
                                 </a>
                             </li>
                             <li class="list-child">
@@ -145,7 +145,7 @@
                     </li>
                     <li class="nav-parent list-parent">
                         <a>
-                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                            <i class="fa fa-cog" aria-hidden="true"></i>
                             <span>Lainnya</span>
                         </a>
                         <ul class="nav nav-children">

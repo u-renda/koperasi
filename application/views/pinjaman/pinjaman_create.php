@@ -1,6 +1,6 @@
 <section role="main" class="content-body">
 	<header class="page-header">
-		<h2>Daftar Angsuran</h2>
+		<h2>Tambah Pinjaman</h2>
 	
 		<div class="right-wrapper pull-right mr-xl">
 			<ol class="breadcrumbs">
@@ -10,18 +10,18 @@
 					</a>
 				</li>
 				<li><span>Pinjaman</span></li>
-				<li><span>Daftar Angsuran</span></li>
+				<li><span>Tambah Pinjaman</span></li>
 			</ol>
 		</div>
 	</header>
 	<!-- start: page -->
-	<div class="row" id="angsuran_lists_page">
+	<div class="row" id="pinjaman_create_page">
 		<div class="col-md-6 col-lg-12 col-xl-6">
 			<section class="panel">
 				<div class="panel-body">
-					<button type="button" class="mb-xl mt-xs mr-xs btn btn-primary">
-						<i class="fa fa-plus"></i> Tambah Baru
-					</button>
+					<a type="button" class="mb-xl mt-xs mr-xs btn btn-default">
+						Batal
+					</a>
 					<div id="multipleTable"></div>
 				</div>
 			</section>

@@ -43,6 +43,7 @@ class User extends CI_Controller {
                 'Nama' => ucwords($row->nama),
                 'Email' => $row->email,
                 'Username' => $row->username,
+                'Telp' => $row->telp,
                 'Aksi' => $action
             );
 
@@ -83,15 +84,16 @@ class User extends CI_Controller {
 
         foreach ($query->result() as $row)
         {
-            $action = '<a title="View" id="'.$row->id_anggota.'" class="view '.$row->id_anggota.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
+            $action = '<a title="View" id="'.$row->id_anggota.'" class="view '.$row->id_anggota.'-view" href="#"><i class="fa fa-folder-open h4 text-warning"></i></a>&nbsp;
 						<a title="Edit" id="'.$row->id_anggota.'" class="edit '.$row->id_anggota.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
                         <a title="Delete" id="'.$row->id_anggota.'" class="delete '.$row->id_anggota.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
-
+					//<a title="Tambah Pinjaman" href="'.$this->config->item("link_pinjaman_create").'?id_anggota='.$row->id_anggota.'"><i class="fa fa-plus h4 text-success"></i></a>&nbsp;
             $entry = array(
                 'No' => $i,
                 'NoAnggota' => $row->no_anggota,
                 'Nama' => ucwords($row->nama),
                 'Kota' => ucwords($row->nama_kota),
+                'Telp' => $row->telp,
                 'Aksi' => $action
             );
 

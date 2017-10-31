@@ -6,6 +6,7 @@ class Pinjaman extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
+		$this->load->model('anggota_model');
 		$this->load->model('angsuran_model');
 		$this->load->model('pinjaman_model');
 		
@@ -37,13 +38,21 @@ class Pinjaman extends CI_Controller {
             $action = '<a title="View" id="'.$row->id_angsuran.'" class="view '.$row->id_angsuran.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
 						<a title="Edit" id="'.$row->id_angsuran.'" class="edit '.$row->id_angsuran.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
                         <a title="Delete" id="'.$row->id_angsuran.'" class="delete '.$row->id_angsuran.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
-
+			
+			$nama_anggota = '';
+			$query2 = $this->pinjaman_model->info(array('id_pinjaman' => $row->id_pinjaman));
+			
+			if ($query2->num_rows() > 0)
+			{
+				$nama_anggota = ucwords($query2->row()->nama);
+			}
+			
             $entry = array(
                 'No' => $i,
-                'NoAngsuran' => $row->no_angsuran,
+                'Anggota' => $nama_anggota,
                 'TglAngsuran' => $row->tgl_angsuran,
                 'AngsuranKe' => $row->angsuran_ke,
-                'SisaAngsuran' => $row->sisa_angsuran,
+                'JumlahAngsuran' => number_format($row->jumlah_angsuran, 0, ',','.'),
                 'Aksi' => $action
             );
 
@@ -58,10 +67,16 @@ class Pinjaman extends CI_Controller {
 	{
 		$data = array();
 		$data['view_content'] = 'pinjaman/angsuran_lists';
-		
 		$this->load->view('templates/frame', $data);
 	}
 
+	function pinjaman_create()
+	{
+		$data = array();
+		$data['view_content'] = 'pinjaman/pinjaman_create';
+		$this->load->view('templates/frame', $data);
+	}
+	
 	function pinjaman_get()
 	{
 		$page = $this->input->post('page') ? $this->input->post('page') : 1;
@@ -84,16 +99,29 @@ class Pinjaman extends CI_Controller {
 
         foreach ($query->result() as $row)
         {
-            $action = '<a title="View" id="'.$row->id_pinjaman.'" class="view '.$row->id_pinjaman.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
+            $code_pinjaman_status = $this->config->item('code_pinjaman_status');
+			
+			$action = '<a title="View" id="'.$row->id_pinjaman.'" class="view '.$row->id_pinjaman.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
 						<a title="Edit" id="'.$row->id_pinjaman.'" class="edit '.$row->id_pinjaman.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
                         <a title="Delete" id="'.$row->id_pinjaman.'" class="delete '.$row->id_pinjaman.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
-
+			
+			$status = $code_pinjaman_status[$row->status];
+			if ($row->status == 2)
+			{
+				$status = '<span class="well well-sm success">'.$code_pinjaman_status[$row->status].'</span>';
+			}
+			elseif ($row->status == 3)
+			{
+				$status = '<span class="well well-sm danger">'.$code_pinjaman_status[$row->status].'</span>';
+			}
+			
             $entry = array(
                 'No' => $i,
-                'NoPinjaman' => $row->no_pinjaman,
                 'NamaAnggota' => ucwords($row->nama),
-                'TglPinjam' => $row->tgl_pinjam,
-                'JumlahPinjaman' => $row->jumlah_pinjaman,
+                'TglPinjam' => date('d M Y', strtotime($row->tgl_pinjam)),
+                'TglJatuhTempo' => date('d M Y', strtotime($row->tgl_jatuh_tempo)),
+                'JumlahPinjaman' => number_format($row->jumlah_pinjaman, 0, ',','.'),
+                'Keterangan' => $status,
                 'Aksi' => $action
             );
 

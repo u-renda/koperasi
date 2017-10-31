@@ -17,6 +17,9 @@
 		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/bootstrap.css'; ?>" />
 		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/font-awesome.css'; ?>" />
 		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/bootstrap-fileupload.min.css'; ?>" />
+    
+		<!-- Datepicker -->
+		<link href="<?php echo base_url('assets/css').'/datepicker.css'; ?>" rel="stylesheet">
 		
 		<!-- Kendo -->
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/kendo').'/kendo.common.min.css'; ?>">

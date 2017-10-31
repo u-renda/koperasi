@@ -17,13 +17,6 @@
                 <span class="separator"></span>
                 <div id="userbox" class="userbox">
                     <a href="#" data-toggle="dropdown">
-                        <figure class="profile-picture">
-                            <?php
-                            echo '<img src="'.base_url('assets/images').'/user_default.png" alt="'.$this->session->userdata('nama').'" class="img-circle" data-lock-picture="'.base_url('assets/images').'/user_default.png" />';
-                            if ($this->session->userdata('photo') != '') {
-                                echo '<img src="'.$this->session->userdata('foto').'" alt="'.$this->session->userdata('nama').'" class="img-circle" data-lock-picture="'.$this->session->userdata('foto').'" />';
-                            } ?>
-                        </figure>
                         <div class="profile-info" data-lock-nama="<?php echo $this->session->userdata('nama'); ?>" data-lock-email="<?php echo $this->session->userdata('email'); ?>">
                             <span class="name"><?php echo $this->session->userdata('nama'); ?></span>
                             <span class="role"><?php echo $this->session->userdata('admin_tipe'); ?></span>

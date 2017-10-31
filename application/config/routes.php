@@ -65,6 +65,7 @@ $route['logout'] = 'login/logout';
 $route['lupa_password'] = 'login/lupa_password';
 
 /* LAINNYA */
+$route['admin_edit'] = 'lainnya/admin_edit';
 $route['akun_saya'] = 'lainnya/akun_saya';
 
 /* LAPORAN */
@@ -87,11 +88,13 @@ $route['simpanan_tipe_lists'] = 'master_data/simpanan_tipe_lists';
 /* PINJAMAN */
 $route['angsuran_get'] = 'pinjaman/angsuran_get';
 $route['angsuran_lists'] = 'pinjaman/angsuran_lists';
+$route['pinjaman_create'] = 'pinjaman/pinjaman_create';
 $route['pinjaman_get'] = 'pinjaman/pinjaman_get';
 $route['pinjaman_lists'] = 'pinjaman/pinjaman_lists';
 
 /* SIMPANAN */
-$route['setor_ambil_lists'] = 'simpanan/setor_ambil_lists';
+$route['simpanan_detail_lists'] = 'simpanan/simpanan_detail_lists';
+$route['simpanan_get'] = 'simpanan/simpanan_get';
 $route['simpanan_lists'] = 'simpanan/simpanan_lists';
 
 /* USER */
