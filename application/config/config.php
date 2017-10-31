@@ -537,6 +537,7 @@ $config['link_anggota_lists'] = $config['base_url'].'anggota_lists';
 $config['link_angsuran_lists'] = $config['base_url'].'angsuran_lists';
 $config['link_deposito_lists'] = $config['base_url'].'deposito_lists';
 $config['link_home'] = $config['base_url'].'home';
+$config['link_kota_lists'] = $config['base_url'].'kota_lists';
 $config['link_laporan_angsuran'] = $config['base_url'].'laporan_angsuran';
 $config['link_laporan_bunga_tabungan'] = $config['base_url'].'laporan_bunga_tabungan';
 $config['link_laporan_pinjaman'] = $config['base_url'].'laporan_pinjaman';

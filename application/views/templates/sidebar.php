@@ -20,7 +20,7 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    <li class="nav-parent list-parent">
+                    <li class="nav-parent list-parent" id="master_data">
                         <a>
                             <i class="fa fa-th-list" aria-hidden="true"></i>
                             <span>Master Data</span>
@@ -31,7 +31,7 @@
                                      Tipe Petugas
                                 </a>
                             </li>
-                            <li class="list-child">
+                            <li class="list-child" id="provinsi">
                                 <a href="<?php echo $this->config->item('link_provinsi_lists'); ?>">
                                      Provinsi & Kota
                                 </a>

@@ -1,28 +1,6 @@
 (function($) {
 
 	'use strict';
-	
-	/*
-	Sidebar
-	*/
-    var list_child = $('li.list-child');
-    
-    // untuk dashboard
-    if (winPath[2] === 'home') {
-        $('.list-dashboard').addClass('nav-active');
-    }
-    
-    list_child.each(function() {
-        var href = $(this).find('a').attr('href');
-        var list_parent = $(this).closest("li.list-parent");
-        var winPathName = window.location.pathname;
-        var newPath = winOrigin + winPathName;
-        
-        if (href === newPath) {
-            $(this).addClass('nav-active');
-            list_parent.addClass('nav-active');
-        }
-    });
     
     // TinyMCE
     tinymce.init({
@@ -150,6 +128,71 @@ $(function () {
             },
             {
                 field: "Nama",
+                width: 300,
+                template: "#= data.Nama #"
+            },
+            {
+                field: "Aksi",
+                sortable: false,
+                filterable: false,
+                width: 50,
+                template: "#= data.Aksi #"
+            }]
+        });
+    }
+	
+    // Kota Lists
+    if (document.getElementById('kota_lists_page') != null) {
+        var id = $('#kota_lists_page').attr("data-program");
+		
+        $("#multipleTable").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "kota_get?id=" + id,
+                        dataType: "json",
+                        type: "POST",
+                        data: {}
+                    }
+                },
+                schema: {
+                    data: "results",
+                    total: "total"
+                },
+                pageSize: 20,
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                cache: false
+            },
+            sortable: {
+                mode: "single",
+                allowUnsort: true
+            },
+            pageable: {
+                buttonCount: 5,
+                input: true,
+                pageSizes: true,
+                refresh: true
+            },
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Mengandung kata"
+                    }
+                }
+            },
+            selectable: "row",
+            resizable: true,
+            columns: [{
+                field: "No",
+                sortable: false,
+                filterable: false,
+                width: 30
+            },
+            {
+                field: "Nama",
                 width: 300
             },
             {
@@ -168,7 +211,7 @@ $(function () {
             dataSource: {
                 transport: {
                     read: {
-                        url: "provinsi_get",
+                        url: "simpanan_tipe_get",
                         dataType: "json",
                         type: "POST",
                         data: {}
@@ -284,6 +327,232 @@ $(function () {
             {
                 field: "Kota",
                 width: 150
+            },
+            {
+                field: "Aksi",
+                sortable: false,
+                filterable: false,
+                width: 70,
+                template: "#= data.Aksi #"
+            }]
+        });
+    }
+	
+    // Admin Lists
+    if (document.getElementById('admin_lists_page') != null) {
+        $("#multipleTable").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "admin_get",
+                        dataType: "json",
+                        type: "POST",
+                        data: {}
+                    }
+                },
+                schema: {
+                    data: "results",
+                    total: "total"
+                },
+                pageSize: 20,
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                cache: false
+            },
+            sortable: {
+                mode: "single",
+                allowUnsort: true
+            },
+            pageable: {
+                buttonCount: 5,
+                input: true,
+                pageSizes: true,
+                refresh: true
+            },
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Mengandung kata"
+                    }
+                }
+            },
+            selectable: "row",
+            resizable: true,
+            columns: [{
+                field: "No",
+                sortable: false,
+                filterable: false,
+                width: 30
+            },
+            {
+                field: "Nama",
+                width: 200
+            },
+            {
+                field: "Email",
+                width: 150
+            },
+            {
+                field: "Username",
+                width: 150
+            },
+            {
+                field: "Aksi",
+                sortable: false,
+                filterable: false,
+                width: 70,
+                template: "#= data.Aksi #"
+            }]
+        });
+    }
+	
+    // Pinjaman Lists
+    if (document.getElementById('pinjaman_lists_page') != null) {
+        $("#multipleTable").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "pinjaman_get",
+                        dataType: "json",
+                        type: "POST",
+                        data: {}
+                    }
+                },
+                schema: {
+                    data: "results",
+                    total: "total"
+                },
+                pageSize: 20,
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                cache: false
+            },
+            sortable: {
+                mode: "single",
+                allowUnsort: true
+            },
+            pageable: {
+                buttonCount: 5,
+                input: true,
+                pageSizes: true,
+                refresh: true
+            },
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Mengandung kata"
+                    }
+                }
+            },
+            selectable: "row",
+            resizable: true,
+            columns: [{
+                field: "No",
+                sortable: false,
+                filterable: false,
+                width: 30
+            },
+            {
+                field: "NoPinjaman",
+				title: "No. Pinjaman",
+                width: 100
+            },
+            {
+                field: "NamaAnggota",
+				title: "Nama Anggota",
+                width: 100
+            },
+            {
+                field: "TglPinjam",
+				title: "Tgl Pinjam",
+                width: 100
+            },
+            {
+                field: "JumlahPinjaman",
+				title: "Jumlah Pinjaman",
+                width: 100
+            },
+            {
+                field: "Aksi",
+                sortable: false,
+                filterable: false,
+                width: 70,
+                template: "#= data.Aksi #"
+            }]
+        });
+    }
+	
+    // Pinjaman Lists
+    if (document.getElementById('angsuran_lists_page') != null) {
+        $("#multipleTable").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "angsuran_get",
+                        dataType: "json",
+                        type: "POST",
+                        data: {}
+                    }
+                },
+                schema: {
+                    data: "results",
+                    total: "total"
+                },
+                pageSize: 20,
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                cache: false
+            },
+            sortable: {
+                mode: "single",
+                allowUnsort: true
+            },
+            pageable: {
+                buttonCount: 5,
+                input: true,
+                pageSizes: true,
+                refresh: true
+            },
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Mengandung kata"
+                    }
+                }
+            },
+            selectable: "row",
+            resizable: true,
+            columns: [{
+                field: "No",
+                sortable: false,
+                filterable: false,
+                width: 30
+            },
+            {
+                field: "NoAngsuran",
+				title: "No. Angsuran",
+                width: 100
+            },
+            {
+                field: "TglAngsuran",
+				title: "Tgl Angsuran",
+                width: 100
+            },
+            {
+                field: "AngsuranKe",
+				title: "Angsuran Ke",
+                width: 100
+            },
+            {
+                field: "SisaAngsuran",
+				title: "Sisa Angsuran",
+                width: 100
             },
             {
                 field: "Aksi",

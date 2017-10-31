@@ -1,28 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Provinsi_model extends CI_Model {
+class Kota_model extends CI_Model {
 
-    var $table = 'provinsi';
-	var $table_id = 'id_provinsi';
+    var $table = 'kota';
+	var $table_id = 'id_kota';
     
     public function __construct()
     {
         parent::__construct();
-    }
-    
-    function info($param)
-    {
-		$where = array();
-		if (isset($param['id_provinsi']) == TRUE)
-		{
-			$where += array('id_provinsi' => $param['id_provinsi']);
-		}
-		
-        $this->db->select('id_provinsi, nama, created_date, updated_date');
-        $this->db->from($this->table);
-        $this->db->where($where);
-        $query = $this->db->get();
-        return $query;
     }
     
     function lists($param)
@@ -44,8 +29,15 @@ class Provinsi_model extends CI_Model {
 			$param['sort'] = 'ASC';
 		}
 		
-        $this->db->select('id_provinsi, nama, created_date, updated_date');
+		$where = array();
+		if (isset($param['id_provinsi']) == TRUE)
+		{
+			$where += array('id_provinsi' => $param['id_provinsi']);
+		}
+		
+        $this->db->select('id_kota, id_provinsi, nama, created_date, updated_date');
         $this->db->from($this->table);
+        $this->db->where($where);
         $this->db->order_by($param['order'], $param['sort']);
         $this->db->limit($param['limit'], $param['offset']);
         $query = $this->db->get();

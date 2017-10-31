@@ -77,13 +77,17 @@ $route['laporan_tunggakan'] = 'laporan/laporan_tunggakan';
 /* MASTER DATA */
 $route['admin_tipe_get'] = 'master_data/admin_tipe_get';
 $route['admin_tipe_lists'] = 'master_data/admin_tipe_lists';
+$route['kota_get'] = 'master_data/kota_get';
+$route['kota_lists'] = 'master_data/kota_lists';
 $route['provinsi_get'] = 'master_data/provinsi_get';
 $route['provinsi_lists'] = 'master_data/provinsi_lists';
 $route['simpanan_tipe_get'] = 'master_data/simpanan_tipe_get';
 $route['simpanan_tipe_lists'] = 'master_data/simpanan_tipe_lists';
 
 /* PINJAMAN */
+$route['angsuran_get'] = 'pinjaman/angsuran_get';
 $route['angsuran_lists'] = 'pinjaman/angsuran_lists';
+$route['pinjaman_get'] = 'pinjaman/pinjaman_get';
 $route['pinjaman_lists'] = 'pinjaman/pinjaman_lists';
 
 /* SIMPANAN */

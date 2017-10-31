@@ -41,6 +41,8 @@ class User extends CI_Controller {
             $entry = array(
                 'No' => $i,
                 'Nama' => ucwords($row->nama),
+                'Email' => $row->email,
+                'Username' => $row->username,
                 'Aksi' => $action
             );
 
@@ -81,7 +83,8 @@ class User extends CI_Controller {
 
         foreach ($query->result() as $row)
         {
-            $action = '<a title="Edit" id="'.$row->id_anggota.'" class="edit '.$row->id_anggota.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
+            $action = '<a title="View" id="'.$row->id_anggota.'" class="view '.$row->id_anggota.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
+						<a title="Edit" id="'.$row->id_anggota.'" class="edit '.$row->id_anggota.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
                         <a title="Delete" id="'.$row->id_anggota.'" class="delete '.$row->id_anggota.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
 
             $entry = array(

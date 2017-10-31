@@ -27,6 +27,23 @@ class Admin_tipe_model extends CI_Model {
     
     function lists($param)
     {
+		if (isset($param['limit']) == FALSE)
+		{
+			$param['limit'] = 20;
+		}
+		if (isset($param['offset']) == FALSE)
+		{
+			$param['offset'] = 0;
+		}
+		if (isset($param['order']) == FALSE)
+		{
+			$param['order'] = 'nama';
+		}
+		if (isset($param['sort']) == FALSE)
+		{
+			$param['sort'] = 'ASC';
+		}
+		
         $this->db->select('id_admin_tipe, nama, hak_akses, created_date, updated_date');
         $this->db->from($this->table);
         $this->db->order_by($param['order'], $param['sort']);

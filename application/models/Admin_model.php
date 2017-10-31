@@ -26,10 +26,39 @@ class Admin_model extends CI_Model {
             $where += array('password' => $param['password']);
         }
         
-        $this->db->select('id_admin, id_admin_tipe, nama, email, username, password, jenis_kelamin,
+        $this->db->select($this->table_id.', id_admin_tipe, nama, email, username, password, jenis_kelamin,
 						  tempat_lahir, tanggal_lahir, alamat, telp, foto, created_date, updated_date');
         $this->db->from($this->table);
         $this->db->where($where);
+        $query = $this->db->get();
+        return $query;
+    }
+    
+    function lists($param)
+    {
+		if (isset($param['limit']) == FALSE)
+		{
+			$param['limit'] = 20;
+		}
+		if (isset($param['offset']) == FALSE)
+		{
+			$param['offset'] = 0;
+		}
+		if (isset($param['order']) == FALSE)
+		{
+			$param['order'] = 'nama';
+		}
+		if (isset($param['sort']) == FALSE)
+		{
+			$param['sort'] = 'ASC';
+		}
+		
+        $this->db->select($this->table_id.', id_admin_tipe, nama, email, username, password,
+						  jenis_kelamin, tempat_lahir, tanggal_lahir, alamat, telp, foto, created_date,
+						  updated_date');
+        $this->db->from($this->table);
+        $this->db->order_by($param['order'], $param['sort']);
+        $this->db->limit($param['limit'], $param['offset']);
         $query = $this->db->get();
         return $query;
     }
