@@ -18,7 +18,7 @@
 		<div class="col-md-12 col-lg-12 col-xl-12">
 			<section class="panel">
 				<div class="panel-body">
-					<h3 class="mt-sm">Selamat datang <?php echo $this->session->userdata('nama'); ?></h3>
+					<p class="mt-sm">Selamat datang di sistem Koperasi Arthadiro Sejahtera</p>
 				</div>
 			</section>
 		</div>
@@ -85,25 +85,11 @@
 				<section class="panel">
 					<header class="panel-heading bg-white">
 						<div class="panel-heading-icon bg-primary mt-sm">
-							<i class="fa fa-dollar"></i>
-						</div>
-					</header>
-					<div class="panel-body">
-						<h3 class="text-semibold mt-none text-center">Data Simpanan</h3>
-					</div>
-				</section>
-			</a>
-		</div>
-		<div class="col-md-3 col-lg-3 col-xl-3">
-			<a href="<?php echo $this->config->item('link_deposito_lists'); ?>" class="color-grey">
-				<section class="panel">
-					<header class="panel-heading bg-white">
-						<div class="panel-heading-icon bg-primary mt-sm">
 							<i class="fa fa-book"></i>
 						</div>
 					</header>
 					<div class="panel-body">
-						<h3 class="text-semibold mt-none text-center">Data Deposito</h3>
+						<h3 class="text-semibold mt-none text-center">Data Simpanan</h3>
 					</div>
 				</section>
 			</a>

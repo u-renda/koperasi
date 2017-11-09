@@ -10,6 +10,13 @@ class Admin_model extends CI_Model {
         parent::__construct();
     }
     
+    function create($param)
+    {
+        $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
+		$query = $this->db->insert($this->table, $param);
+		return $query;
+    }
+    
     function info($param)
     {
         $where = array();
@@ -24,6 +31,14 @@ class Admin_model extends CI_Model {
         if (isset($param['password']) == TRUE)
         {
             $where += array('password' => $param['password']);
+        }
+        if (isset($param['nama']) == TRUE)
+        {
+            $where += array('nama' => $param['nama']);
+        }
+        if (isset($param['email']) == TRUE)
+        {
+            $where += array('email' => $param['email']);
         }
         
         $this->db->select($this->table_id.', id_admin_tipe, nama, email, username, password, jenis_kelamin,

@@ -10,6 +10,38 @@ class Anggota_model extends CI_Model {
         parent::__construct();
     }
     
+    function create($param)
+    {
+        $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
+		$query = $this->db->insert($this->table, $param);
+		return $query;
+    }
+    
+    function info($param)
+    {
+        $where = array();
+        if (isset($param['no_anggota']) == TRUE)
+        {
+            $where += array('no_anggota' => $param['no_anggota']);
+        }
+        if (isset($param['nama']) == TRUE)
+        {
+            $where += array('nama' => $param['nama']);
+        }
+        if (isset($param['id_anggota']) == TRUE)
+        {
+            $where += array($this->table_id => $param['id_anggota']);
+        }
+        
+        $this->db->select($this->table_id.', id_anggota_tipe, id_kota, no_anggota, nama, jenis_kelamin,
+						  tempat_lahir, tanggal_lahir, alamat, kode_pos, telp, created_date,
+						  updated_date');
+        $this->db->from($this->table);
+        $this->db->where($where);
+        $query = $this->db->get();
+        return $query;
+    }
+    
     function lists($param)
     {
 		if (isset($param['limit']) == FALSE)

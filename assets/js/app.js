@@ -329,20 +329,28 @@ $(function () {
                 field: "Telp",
                 sortable: false,
                 filterable: false,
-                width: 100
-            },
-            {
-                field: "Kota",
-                sortable: false,
-                filterable: false,
-                width: 150
+                width: 80
             },
             {
                 field: "Aksi",
                 sortable: false,
                 filterable: false,
-                width: 100,
+                width: 80,
                 template: "#= data.Aksi #"
+            },
+            {
+                field: "Pinjaman",
+                sortable: false,
+                filterable: false,
+                width: 100,
+                template: "#= data.Pinjaman #"
+            },
+            {
+                field: "Simpanan",
+                sortable: false,
+                filterable: false,
+                width: 100,
+                template: "#= data.Simpanan #"
             }]
         });
     }
@@ -476,21 +484,20 @@ $(function () {
                 width: 30
             },
             {
-                field: "NamaAnggota",
-				title: "Nama Anggota",
+                field: "NoPinjaman",
+				title: "No. Pinjaman",
                 width: 100
             },
             {
-                field: "TglPinjam",
-				title: "Tgl Pinjam",
-                filterable: false,
+                field: "NamaAnggota",
+				title: "Nama Anggota",
                 width: 100
             },
             {
                 field: "TglJatuhTempo",
 				title: "Jatuh Tempo",
                 filterable: false,
-                width: 100
+                width: 80
             },
             {
                 field: "JumlahPinjaman",
@@ -512,6 +519,13 @@ $(function () {
                 filterable: false,
                 width: 70,
                 template: "#= data.Aksi #"
+            },
+            {
+                field: "Angsuran",
+                sortable: false,
+                filterable: false,
+                width: 100,
+                template: "#= data.Angsuran #"
             }]
         });
     }

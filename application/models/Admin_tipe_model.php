@@ -10,12 +10,23 @@ class Admin_tipe_model extends CI_Model {
         parent::__construct();
     }
     
+    function create($param)
+    {
+        $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
+		$query = $this->db->insert($this->table, $param);
+		return $query;
+    }
+    
     function info($param)
     {
         $where = array();
         if (isset($param['id_admin_tipe']) == TRUE)
         {
             $where += array($this->table_id => $param['id_admin_tipe']);
+        }
+        if (isset($param['nama']) == TRUE)
+        {
+            $where += array('nama' => $param['nama']);
         }
         
         $this->db->select('id_admin_tipe, nama, hak_akses, created_date, updated_date');

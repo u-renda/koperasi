@@ -10,6 +10,32 @@ class Kota_model extends CI_Model {
         parent::__construct();
     }
     
+    function create($param)
+    {
+        $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
+		$query = $this->db->insert($this->table, $param);
+		return $query;
+    }
+    
+    function info($param)
+    {
+        $where = array();
+        if (isset($param['nama']) == TRUE)
+        {
+            $where += array('nama' => $param['nama']);
+        }
+        if (isset($param['id_provinsi']) == TRUE)
+        {
+            $where += array('id_provinsi' => $param['id_provinsi']);
+        }
+        
+        $this->db->select($this->table_id.', id_provinsi, nama, created_date, updated_date');
+        $this->db->from($this->table);
+        $this->db->where($where);
+        $query = $this->db->get();
+        return $query;
+    }
+    
     function lists($param)
     {
 		if (isset($param['limit']) == FALSE)

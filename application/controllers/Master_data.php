@@ -13,6 +13,37 @@ class Master_data extends CI_Controller {
 		
 		if ($this->session->userdata('is_login') == FALSE) { redirect($this->config->item('link_login')); }
     }
+	
+	function admin_tipe_create()
+	{
+		$data = array();
+        $data['grid'] = $this->input->post('grid');
+		
+		if ($this->input->post('submit') == TRUE)
+		{
+			$param = array();
+			$param['nama'] = $this->input->post('nama');
+			$param['created_date'] = date('Y-m-d H:i:s');
+			$param['updated_date'] = date('Y-m-d H:i:s');
+			$query = $this->admin_tipe_model->create($param);
+
+			if ($query > 0)
+			{
+				$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Create');
+			}
+			else
+			{
+				$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Create');
+			}
+
+			echo json_encode($response);
+			exit();
+		}
+		else
+		{
+			$this->load->view('master_data/admin_tipe_create', $data);
+		}
+	}
 
 	function admin_tipe_get()
 	{
@@ -59,6 +90,39 @@ class Master_data extends CI_Controller {
 		
 		$this->load->view('templates/frame', $data);
 	}
+	
+	function kota_create()
+	{
+		$data = array();
+        $data['id_provinsi'] = $this->input->post('id_provinsi');
+        $data['grid'] = $this->input->post('grid');
+		
+		if ($this->input->post('submit') == TRUE)
+		{
+			$param = array();
+			$param['id_provinsi'] = $data['id_provinsi'];
+			$param['nama'] = $this->input->post('nama');
+			$param['created_date'] = date('Y-m-d H:i:s');
+			$param['updated_date'] = date('Y-m-d H:i:s');
+			$query = $this->kota_model->create($param);
+
+			if ($query > 0)
+			{
+				$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Create');
+			}
+			else
+			{
+				$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Create');
+			}
+
+			echo json_encode($response);
+			exit();
+		}
+		else
+		{
+			$this->load->view('master_data/kota_create', $data);
+		}
+	}
 
 	function kota_get()
 	{
@@ -70,7 +134,7 @@ class Master_data extends CI_Controller {
         $sort = 'asc';
         $sort_post = $this->input->post('sort');
         $filter = $this->input->post('filter');
-		$id_provinsi = $this->input->post('id');
+		$id_provinsi = $this->input->get_post('id');
 
         if ($sort_post)
         {
@@ -122,6 +186,37 @@ class Master_data extends CI_Controller {
 			$this->load->view('templates/frame', $data);
 		}
 	}
+	
+	function provinsi_create()
+	{
+		$data = array();
+        $data['grid'] = $this->input->post('grid');
+		
+		if ($this->input->post('submit') == TRUE)
+		{
+			$param = array();
+			$param['nama'] = $this->input->post('nama');
+			$param['created_date'] = date('Y-m-d H:i:s');
+			$param['updated_date'] = date('Y-m-d H:i:s');
+			$query = $this->provinsi_model->create($param);
+
+			if ($query > 0)
+			{
+				$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Create');
+			}
+			else
+			{
+				$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Create');
+			}
+
+			echo json_encode($response);
+			exit();
+		}
+		else
+		{
+			$this->load->view('master_data/provinsi_create', $data);
+		}
+	}
 
 	function provinsi_get()
 	{
@@ -167,6 +262,37 @@ class Master_data extends CI_Controller {
 		$data['view_content'] = 'master_data/provinsi_lists';
 		
 		$this->load->view('templates/frame', $data);
+	}
+	
+	function simpanan_tipe_create()
+	{
+		$data = array();
+        $data['grid'] = $this->input->post('grid');
+		
+		if ($this->input->post('submit') == TRUE)
+		{
+			$param = array();
+			$param['nama'] = $this->input->post('nama');
+			$param['created_date'] = date('Y-m-d H:i:s');
+			$param['updated_date'] = date('Y-m-d H:i:s');
+			$query = $this->simpanan_tipe_model->create($param);
+
+			if ($query > 0)
+			{
+				$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Create');
+			}
+			else
+			{
+				$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Create');
+			}
+
+			echo json_encode($response);
+			exit();
+		}
+		else
+		{
+			$this->load->view('master_data/simpanan_tipe_create', $data);
+		}
 	}
 
 	function simpanan_tipe_get()

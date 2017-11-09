@@ -20,7 +20,7 @@
 			<section class="panel">
 				<div class="panel-body">
 					<h4>Daftar kota di provinsi <?php echo $result->nama; ?></h4>
-					<button type="button" class="mb-xl mt-xs mr-xs btn btn-primary">
+					<button type="button" class="mb-xl mt-xs mr-xs btn btn-primary" id="tambah">
 						<i class="fa fa-plus"></i> Tambah Baru
 					</button>
 					<a type="button" class="mb-xl mt-xs mr-xs btn btn-default" href="<?php echo $this->config->item('link_provinsi_lists'); ?>">

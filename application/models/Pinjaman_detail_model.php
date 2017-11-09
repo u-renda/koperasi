@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Simpanan_tipe_model extends CI_Model {
+class Pinjaman_detail_model extends CI_Model {
 
-    var $table = 'simpanan_tipe';
-	var $table_id = 'id_simpanan_tipe';
+    var $table = 'pinjaman_detail';
+	var $table_id = 'id_pinjaman_detail';
     
     public function __construct()
     {
@@ -15,21 +15,6 @@ class Simpanan_tipe_model extends CI_Model {
         $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
 		$query = $this->db->insert($this->table, $param);
 		return $query;
-    }
-    
-    function info($param)
-    {
-		$where = array();
-		if (isset($param['nama']) == TRUE)
-		{
-			$where += array('nama' => $param['nama']);
-		}
-		
-        $this->db->select($this->table_id.', nama, created_date, updated_date');
-        $this->db->from($this->table);
-        $this->db->where($where);
-        $query = $this->db->get();
-        return $query;
     }
     
     function lists($param)
@@ -44,14 +29,15 @@ class Simpanan_tipe_model extends CI_Model {
 		}
 		if (isset($param['order']) == FALSE)
 		{
-			$param['order'] = 'nama';
+			$param['order'] = 'no_pinjaman';
 		}
 		if (isset($param['sort']) == FALSE)
 		{
-			$param['sort'] = 'ASC';
+			$param['sort'] = 'DESC';
 		}
 		
-        $this->db->select('id_simpanan_tipe, nama, created_date, updated_date');
+        $this->db->select($this->table_id.', id_pinjaman, pokok, bunga, jumlah, sisa, created_date,
+						  updated_date');
         $this->db->from($this->table);
         $this->db->order_by($param['order'], $param['sort']);
         $this->db->limit($param['limit'], $param['offset']);

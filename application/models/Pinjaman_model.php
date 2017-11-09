@@ -9,6 +9,14 @@ class Pinjaman_model extends CI_Model {
     {
         parent::__construct();
     }
+    
+    function create($param)
+    {
+        $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
+		$query = $this->db->insert($this->table, $param);
+		$id = $this->db->insert_id();
+		return $id;
+    }
 	
 	function info($param)
 	{
@@ -18,11 +26,11 @@ class Pinjaman_model extends CI_Model {
 			$where += array($this->table_id => $param['id_pinjaman']);
 		}
 		
-		$this->db->select($this->table_id.', '.$this->table.'.id_anggota, no_pinjaman, tgl_pinjam,
-						  jumlah_pinjaman, kali_angsuran, jumlah_angsuran, bunga, total_angsuran,
+		$this->db->select($this->table_id.', '.$this->table.'.id_anggota, id_pinjaman_tipe, no_pinjaman,
+						  tgl_pinjam, jumlah_pinjaman, kali_angsuran, bunga, tgl_jatuh_tempo, status,
 						  '.$this->table.'.created_date, '.$this->table.'.updated_date, nama');
         $this->db->from($this->table);
-        $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota');
+        $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota', 'left');
         $query = $this->db->get();
         return $query;
 	}
@@ -46,12 +54,11 @@ class Pinjaman_model extends CI_Model {
 			$param['sort'] = 'DESC';
 		}
 		
-        $this->db->select($this->table_id.', '.$this->table.'.id_anggota, no_pinjaman, tgl_pinjam,
-						  jumlah_pinjaman, kali_angsuran, jumlah_angsuran, bunga, tgl_jatuh_tempo,
-						  total_angsuran, status, '.$this->table.'.created_date,
-						  '.$this->table.'.updated_date, nama');
+        $this->db->select($this->table_id.', '.$this->table.'.id_anggota, id_pinjaman_tipe, no_pinjaman,
+						  tgl_pinjam, jumlah_pinjaman, kali_angsuran, bunga, tgl_jatuh_tempo, status,
+						  '.$this->table.'.created_date, '.$this->table.'.updated_date, nama');
         $this->db->from($this->table);
-        $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota');
+        $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota', 'left');
         $this->db->order_by($param['order'], $param['sort']);
         $this->db->limit($param['limit'], $param['offset']);
         $query = $this->db->get();

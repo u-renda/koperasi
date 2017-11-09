@@ -10,15 +10,26 @@ class Provinsi_model extends CI_Model {
         parent::__construct();
     }
     
+    function create($param)
+    {
+        $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
+		$query = $this->db->insert($this->table, $param);
+		return $query;
+    }
+    
     function info($param)
     {
 		$where = array();
 		if (isset($param['id_provinsi']) == TRUE)
 		{
-			$where += array('id_provinsi' => $param['id_provinsi']);
+			$where += array($this->table_id => $param['id_provinsi']);
+		}
+		if (isset($param['nama']) == TRUE)
+		{
+			$where += array('nama' => $param['nama']);
 		}
 		
-        $this->db->select('id_provinsi, nama, created_date, updated_date');
+        $this->db->select($this->table_id.', nama, created_date, updated_date');
         $this->db->from($this->table);
         $this->db->where($where);
         $query = $this->db->get();

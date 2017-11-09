@@ -530,14 +530,18 @@ $config['proxy_ips'] = '';
 $config['title'] = 'Koperasi Arthadiro Sejahtera';
 
 /* LINK */
+$config['link_admin_create'] = $config['base_url'].'admin_create';
 $config['link_admin_edit'] = $config['base_url'].'admin_edit';
 $config['link_admin_lists'] = $config['base_url'].'admin_lists';
+$config['link_admin_tipe_create'] = $config['base_url'].'admin_tipe_create';
 $config['link_admin_tipe_lists'] = $config['base_url'].'admin_tipe_lists';
 $config['link_akun_saya'] = $config['base_url'].'akun_saya';
+$config['link_anggota_create'] = $config['base_url'].'anggota_create';
 $config['link_anggota_lists'] = $config['base_url'].'anggota_lists';
 $config['link_angsuran_lists'] = $config['base_url'].'angsuran_lists';
 $config['link_deposito_lists'] = $config['base_url'].'deposito_lists';
 $config['link_home'] = $config['base_url'].'home';
+$config['link_kota_create'] = $config['base_url'].'kota_create';
 $config['link_kota_lists'] = $config['base_url'].'kota_lists';
 $config['link_laporan_angsuran'] = $config['base_url'].'laporan_angsuran';
 $config['link_laporan_bunga_tabungan'] = $config['base_url'].'laporan_bunga_tabungan';
@@ -549,9 +553,11 @@ $config['link_logout'] = $config['base_url'].'logout';
 $config['link_lupa_password'] = $config['base_url'].'lupa_password';
 $config['link_pinjaman_create'] = $config['base_url'].'pinjaman_create';
 $config['link_pinjaman_lists'] = $config['base_url'].'pinjaman_lists';
+$config['link_provinsi_create'] = $config['base_url'].'provinsi_create';
 $config['link_provinsi_lists'] = $config['base_url'].'provinsi_lists';
 $config['link_simpanan_detail_lists'] = $config['base_url'].'simpanan_detail_lists';
 $config['link_simpanan_lists'] = $config['base_url'].'simpanan_lists';
+$config['link_simpanan_tipe_create'] = $config['base_url'].'simpanan_tipe_create';
 $config['link_simpanan_tipe_lists'] = $config['base_url'].'simpanan_tipe_lists';
 
 /* CODE */
@@ -566,7 +572,7 @@ $config['code_simpanan_status'] = array(
 	2 => 'Ambil'
 );
 
-$config['code_admin_jenis_kelamin'] = array(
+$config['code_jenis_kelamin'] = array(
 	1 => 'Laki-laki',
 	2 => 'Perempuan'
 );

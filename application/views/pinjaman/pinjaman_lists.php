@@ -19,9 +19,6 @@
 		<div class="col-md-6 col-lg-12 col-xl-6">
 			<section class="panel">
 				<div class="panel-body">
-					<button type="button" class="mb-xl mt-xs mr-xs btn btn-primary">
-						<i class="fa fa-plus"></i> Tambah Baru
-					</button>
 					<div id="multipleTable"></div>
 				</div>
 			</section>

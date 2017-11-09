@@ -83,7 +83,7 @@ class Lainnya extends CI_Controller {
 			}
 
 			$data['notif'] = $notif;
-			$data['code_admin_jenis_kelamin'] = $this->config->item('code_admin_jenis_kelamin');
+			$data['code_admin_jenis_kelamin'] = $this->config->item('code_jenis_kelamin');
             $data['result'] = $get->row();
             $data['view_content'] = 'lainnya/akun_saya';
 			$this->load->view('templates/frame', $data);

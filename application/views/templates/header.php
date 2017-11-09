@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/bootstrap.css'; ?>" />
 		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/font-awesome.css'; ?>" />
 		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/bootstrap-fileupload.min.css'; ?>" />
+		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/magnific-popup.css'; ?>" />
     
 		<!-- Datepicker -->
 		<link href="<?php echo base_url('assets/css').'/datepicker.css'; ?>" rel="stylesheet">
@@ -25,6 +26,9 @@
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/kendo').'/kendo.common.min.css'; ?>">
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/kendo').'/kendo.default.min.css'; ?>">
 
+		<!-- Notification CSS -->
+		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/pnotify.custom.css'; ?>" />
+		
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="<?php echo base_url('assets/css').'/theme.css'; ?>" />
 

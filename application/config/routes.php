@@ -57,6 +57,16 @@ $route['translate_uri_dashes'] = FALSE;
 $route['deposito_lists'] = 'deposito/deposito_lists';
 
 /* HOME */
+$route['check_admin_email'] = 'home/check_admin_email';
+$route['check_admin_nama'] = 'home/check_admin_nama';
+$route['check_admin_tipe_nama'] = 'home/check_admin_tipe_nama';
+$route['check_admin_username'] = 'home/check_admin_username';
+$route['check_anggota_nama'] = 'home/check_anggota_nama';
+$route['check_kota_nama'] = 'home/check_kota_nama';
+$route['check_kota_lists'] = 'home/check_kota_lists';
+$route['check_no_anggota'] = 'home/check_no_anggota';
+$route['check_provinsi_nama'] = 'home/check_provinsi_nama';
+$route['check_simpanan_tipe_nama'] = 'home/check_simpanan_tipe_nama';
 $route['home'] = 'home/index';
 
 /* LOGIN */
@@ -76,12 +86,16 @@ $route['laporan_setoran'] = 'laporan/laporan_setoran';
 $route['laporan_tunggakan'] = 'laporan/laporan_tunggakan';
 
 /* MASTER DATA */
+$route['admin_tipe_create'] = 'master_data/admin_tipe_create';
 $route['admin_tipe_get'] = 'master_data/admin_tipe_get';
 $route['admin_tipe_lists'] = 'master_data/admin_tipe_lists';
+$route['kota_create'] = 'master_data/kota_create';
 $route['kota_get'] = 'master_data/kota_get';
 $route['kota_lists'] = 'master_data/kota_lists';
+$route['provinsi_create'] = 'master_data/provinsi_create';
 $route['provinsi_get'] = 'master_data/provinsi_get';
 $route['provinsi_lists'] = 'master_data/provinsi_lists';
+$route['simpanan_tipe_create'] = 'master_data/simpanan_tipe_create';
 $route['simpanan_tipe_get'] = 'master_data/simpanan_tipe_get';
 $route['simpanan_tipe_lists'] = 'master_data/simpanan_tipe_lists';
 
@@ -98,7 +112,9 @@ $route['simpanan_get'] = 'simpanan/simpanan_get';
 $route['simpanan_lists'] = 'simpanan/simpanan_lists';
 
 /* USER */
+$route['admin_create'] = 'user/admin_create';
 $route['admin_get'] = 'user/admin_get';
 $route['admin_lists'] = 'user/admin_lists';
+$route['anggota_create'] = 'user/anggota_create';
 $route['anggota_get'] = 'user/anggota_get';
 $route['anggota_lists'] = 'user/anggota_lists';

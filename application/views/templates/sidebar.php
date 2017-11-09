@@ -95,14 +95,6 @@
                                      Setoran & Pengambilan
                                 </a>
                             </li>-->
-                        </ul>
-                    </li>
-                    <li class="nav-parent list-parent">
-                        <a>
-                            <i class="fa fa-book" aria-hidden="true"></i>
-                            <span>Deposito</span>
-                        </a>
-                        <ul class="nav nav-children">
                             <li class="list-child">
                                 <a href="<?php echo $this->config->item('link_deposito_lists'); ?>">
                                      Daftar Deposito
