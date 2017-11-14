@@ -152,6 +152,29 @@ $(function () {
             });
             return false;
         });
+		
+        // Tambah Simpanan
+		$('body').delegate(".tambahSimpanan", "click", function() {
+            var action = "simpanan_create";
+            var id_anggota = $(this).attr("id");
+            var dataString = 'id_anggota=' + id_anggota;
+            $.ajax(
+            {
+                type: "POST",
+                url: newPathname + action,
+                data: dataString,
+                cache: false,
+                success: function(data)
+                {
+                    $('.modal-dialog').removeClass('modal-lg');
+                    $('.modal-dialog').removeClass('modal-sm');
+                    $('.modal-title').text('Tambah Simpanan');
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                }
+            });
+            return false;
+        });
     }
 	
     // Admin Lists
@@ -213,6 +236,27 @@ $(function () {
 	
     // Simpanan Lists
     if (document.getElementById('simpanan_lists_page') != null) {
-        
+        // Tambah Simpanan Detail
+		$('body').delegate(".tambahSetorTarik", "click", function() {
+            var action = "simpanan_detail_create";
+            var id_simpanan = $(this).attr("id");
+            var dataString = 'id_simpanan=' + id_simpanan;
+            $.ajax(
+            {
+                type: "POST",
+                url: newPathname + action,
+                data: dataString,
+                cache: false,
+                success: function(data)
+                {
+                    $('.modal-dialog').removeClass('modal-lg');
+                    $('.modal-dialog').removeClass('modal-sm');
+                    $('.modal-title').text('Tambah Setor/Tarik');
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                }
+            });
+            return false;
+        });
     }
 });

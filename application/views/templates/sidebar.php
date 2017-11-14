@@ -87,19 +87,19 @@
                         <ul class="nav nav-children">
                             <li class="list-child">
                                 <a href="<?php echo $this->config->item('link_simpanan_lists'); ?>">
-                                     Simpanan Reguler
+                                     Daftar Simpanan
+                                </a>
+                            </li>
+                            <li class="list-child">
+                                <a href="<?php echo $this->config->item('link_simpanan_detail_lists'); ?>">
+                                     Setoran & Pengambilan
                                 </a>
                             </li>
                             <!--<li class="list-child">
-                                <a href="<?php //echo $this->config->item('link_setor_ambil_lists'); ?>">
-                                     Setoran & Pengambilan
-                                </a>
-                            </li>-->
-                            <li class="list-child">
-                                <a href="<?php echo $this->config->item('link_deposito_lists'); ?>">
+                                <a href="<?php //echo $this->config->item('link_deposito_lists'); ?>">
                                      Deposito
                                 </a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                     <li class="nav-parent list-parent">

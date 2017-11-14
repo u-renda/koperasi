@@ -683,6 +683,12 @@ $(function () {
                 width: 20
             },
             {
+                field: "Anggota",
+                sortable: false,
+                filterable: false,
+                width: 100
+            },
+            {
                 field: "TipeSimpanan",
 				title: "Tipe Simpanan",
                 sortable: false,
@@ -690,21 +696,101 @@ $(function () {
                 width: 100
             },
             {
-                field: "Anggota",
-                sortable: false,
-                filterable: false,
-                width: 100
-            },
-            {
-                field: "TglTransaksi",
-				title: "Tgl Transaksi",
+                field: "NoRekening",
+				title: "No Rekening",
                 sortable: false,
                 filterable: false,
                 width: 70
             },
             {
-                field: "JumlahSimpanan",
-				title: "Besar Simpanan",
+                field: "SaldoAkhir",
+				title: "Saldo Akhir",
+                sortable: false,
+                filterable: false,
+                width: 70
+            },
+            {
+                field: "Aksi",
+                sortable: false,
+                filterable: false,
+                width: 70,
+                template: "#= data.Aksi #"
+            },
+			{
+				field: "SetorTarik",
+				title: "Setor/Tarik",
+                sortable: false,
+                filterable: false,
+                width: 70,
+                template: "#= data.SetorTarik #"
+			}]
+        });
+    }
+	
+    // Simpanan Detail Lists (Setor/Tarik)
+    if (document.getElementById('simpanan_detail_lists_page') != null) {
+        $("#multipleTable").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "simpanan_detail_get",
+                        dataType: "json",
+                        type: "POST",
+                        data: {}
+                    }
+                },
+                schema: {
+                    data: "results",
+                    total: "total"
+                },
+                pageSize: 20,
+                serverPaging: true,
+                serverSorting: true,
+                serverFiltering: true,
+                cache: false
+            },
+            sortable: {
+                mode: "single",
+                allowUnsort: true
+            },
+            pageable: {
+                buttonCount: 5,
+                input: true,
+                pageSizes: true,
+                refresh: true
+            },
+            filterable: {
+                extra: false,
+                operators: {
+                    string: {
+                        contains: "Mengandung kata"
+                    }
+                }
+            },
+            selectable: "row",
+            resizable: true,
+            columns: [{
+                field: "No",
+                sortable: false,
+                filterable: false,
+                width: 20
+            },
+            {
+                field: "NoTransaksi",
+				title: "No. Transaksi",
+                sortable: false,
+                filterable: false,
+                width: 100
+            },
+            {
+                field: "Jumlah",
+                sortable: false,
+                filterable: false,
+                width: 100
+            },
+            {
+                field: "SaldoAkhir",
+				title: "Saldo Akhir",
                 sortable: false,
                 filterable: false,
                 width: 70

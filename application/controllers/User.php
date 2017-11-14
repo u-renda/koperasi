@@ -11,6 +11,7 @@ class User extends CI_Controller {
 		$this->load->model('anggota_model');
 		$this->load->model('anggota_tipe_model');
 		$this->load->model('provinsi_model');
+		$this->load->model('simpanan_model');
 		
 		if ($this->session->userdata('is_login') == FALSE) { redirect($this->config->item('link_login')); }
     }
@@ -203,8 +204,16 @@ class User extends CI_Controller {
 						<a title="Edit" id="'.$row->id_anggota.'" class="edit '.$row->id_anggota.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
                         <a title="Delete" id="'.$row->id_anggota.'" class="delete '.$row->id_anggota.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
 					
-			$pinjaman = '<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary tambahPinjaman '.$row->id_anggota.'-tambahAngsuran" id="'.$row->id_anggota.'"><i class="fa fa-plus"></i> Tambah</button>';
-			$simpanan = '<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary tambahSimpanan '.$row->id_anggota.'-tambahAngsuran" id="'.$row->id_anggota.'"><i class="fa fa-plus"></i> Tambah</button>';
+			$pinjaman = '<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary tambahPinjaman '.$row->id_anggota.'-tambahPinjaman" id="'.$row->id_anggota.'"><i class="fa fa-plus"></i> Tambah</button>';
+			
+			// get simpanan
+			$simpanan = 'Sudah terdaftar';
+			$query2 = $this->simpanan_model->info(array('id_anggota' => $row->id_anggota));
+			
+			if ($query2->num_rows() == 0)
+			{
+				$simpanan = '<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary tambahSimpanan '.$row->id_anggota.'-tambahSimpanan" id="'.$row->id_anggota.'"><i class="fa fa-plus"></i> Tambah</button>';
+			}
 			
 			$entry = array(
                 'No' => $i,

@@ -110,6 +110,9 @@ $route['pinjaman_get'] = 'pinjaman/pinjaman_get';
 $route['pinjaman_lists'] = 'pinjaman/pinjaman_lists';
 
 /* SIMPANAN */
+$route['simpanan_create'] = 'simpanan/simpanan_create';
+$route['simpanan_detail_create'] = 'simpanan/simpanan_detail_create';
+$route['simpanan_detail_get'] = 'simpanan/simpanan_detail_get';
 $route['simpanan_detail_lists'] = 'simpanan/simpanan_detail_lists';
 $route['simpanan_get'] = 'simpanan/simpanan_get';
 $route['simpanan_lists'] = 'simpanan/simpanan_lists';

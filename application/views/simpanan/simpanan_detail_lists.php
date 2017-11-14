@@ -15,8 +15,12 @@
 		</div>
 	</header>
 	<!-- start: page -->
-	<div class="row">
+	<div class="row" id="simpanan_detail_lists_page">
 		<div class="col-md-6 col-lg-12 col-xl-6">
-			Selamat datang di Koperasi Arthadiro Sejahtera
+			<section class="panel">
+				<div class="panel-body">
+					<div id="multipleTable"></div>
+				</div>
+			</section>
 		</div>
 	</div>

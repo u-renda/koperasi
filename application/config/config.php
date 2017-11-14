@@ -560,6 +560,8 @@ $config['link_pinjaman_create'] = $config['base_url'].'pinjaman_create';
 $config['link_pinjaman_lists'] = $config['base_url'].'pinjaman_lists';
 $config['link_provinsi_create'] = $config['base_url'].'provinsi_create';
 $config['link_provinsi_lists'] = $config['base_url'].'provinsi_lists';
+$config['link_simpanan_create'] = $config['base_url'].'simpanan_create';
+$config['link_simpanan_detail_create'] = $config['base_url'].'simpanan_detail_create';
 $config['link_simpanan_detail_lists'] = $config['base_url'].'simpanan_detail_lists';
 $config['link_simpanan_lists'] = $config['base_url'].'simpanan_lists';
 $config['link_simpanan_tipe_create'] = $config['base_url'].'simpanan_tipe_create';
@@ -572,7 +574,7 @@ $config['code_pinjaman_status'] = array(
 	3 => 'Jatuh Tempo'
 );
 
-$config['code_simpanan_status'] = array(
+$config['code_simpanan_detail_status'] = array(
 	1 => 'Setor',
 	2 => 'Ambil'
 );

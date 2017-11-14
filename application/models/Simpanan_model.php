@@ -10,6 +10,38 @@ class Simpanan_model extends CI_Model {
         parent::__construct();
     }
     
+    function create($param)
+    {
+        $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
+		$query = $this->db->insert($this->table, $param);
+		$id = $this->db->insert_id();
+		return $id;
+    }
+    
+    function info($param)
+    {
+		$where = array();
+		if (isset($param['id_anggota']) == TRUE && $param['id_anggota'] != '')
+		{
+			$where += array($this->table.'.id_anggota' => $param['id_anggota']);
+		}
+		if (isset($param['id_simpanan']) == TRUE && $param['id_simpanan'] != '')
+		{
+			$where += array($this->table_id => $param['id_simpanan']);
+		}
+		
+        $this->db->select($this->table_id.', '.$this->table.'.id_simpanan_tipe,
+						  '.$this->table.'.id_anggota, no_rekening, '.$this->table.'.created_date,
+						  '.$this->table.'.updated_date, simpanan_tipe.nama AS nama_simpanan_tipe,
+						  anggota.nama AS nama_anggota, anggota.no_anggota AS no_anggota');
+        $this->db->from($this->table);
+        $this->db->join('simpanan_tipe', $this->table.'.id_simpanan_tipe = simpanan_tipe.id_simpanan_tipe', 'left');
+        $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota', 'left');
+        $this->db->where($where);
+        $query = $this->db->get();
+        return $query;
+    }
+    
     function lists($param)
     {
 		if (isset($param['limit']) == FALSE)
@@ -30,9 +62,9 @@ class Simpanan_model extends CI_Model {
 		}
 		
         $this->db->select($this->table_id.', '.$this->table.'.id_simpanan_tipe,
-						  '.$this->table.'.id_anggota, no_transaksi, tgl_transaksi, jumlah_simpanan,
-						  status, '.$this->table.'.created_date, '.$this->table.'.updated_date,
-						  simpanan_tipe.nama AS nama_simpanan_tipe, anggota.nama AS nama_anggota');
+						  '.$this->table.'.id_anggota, no_rekening, '.$this->table.'.created_date,
+						  '.$this->table.'.updated_date, simpanan_tipe.nama AS nama_simpanan_tipe,
+						  anggota.nama AS nama_anggota');
         $this->db->from($this->table);
         $this->db->join('simpanan_tipe', $this->table.'.id_simpanan_tipe = simpanan_tipe.id_simpanan_tipe', 'left');
         $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota', 'left');
