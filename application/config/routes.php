@@ -100,8 +100,11 @@ $route['simpanan_tipe_get'] = 'master_data/simpanan_tipe_get';
 $route['simpanan_tipe_lists'] = 'master_data/simpanan_tipe_lists';
 
 /* PINJAMAN */
+$route['angsuran_create'] = 'pinjaman/angsuran_create';
 $route['angsuran_get'] = 'pinjaman/angsuran_get';
+$route['angsuran_invoice'] = 'pinjaman/angsuran_invoice';
 $route['angsuran_lists'] = 'pinjaman/angsuran_lists';
+$route['angsuran_print'] = 'pinjaman/angsuran_print';
 $route['pinjaman_create'] = 'pinjaman/pinjaman_create';
 $route['pinjaman_get'] = 'pinjaman/pinjaman_get';
 $route['pinjaman_lists'] = 'pinjaman/pinjaman_lists';

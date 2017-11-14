@@ -20,11 +20,11 @@ class Admin_tipe_model extends CI_Model {
     function info($param)
     {
         $where = array();
-        if (isset($param['id_admin_tipe']) == TRUE)
+        if (isset($param['id_admin_tipe']) == TRUE && $param['id_admin_tipe'] != '')
         {
             $where += array($this->table_id => $param['id_admin_tipe']);
         }
-        if (isset($param['nama']) == TRUE)
+        if (isset($param['nama']) == TRUE && $param['nama'] != '')
         {
             $where += array('nama' => $param['nama']);
         }

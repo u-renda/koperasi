@@ -21,7 +21,7 @@ class Pinjaman_model extends CI_Model {
 	function info($param)
 	{
 		$where = array();
-		if (isset($param['id_pinjaman']) == TRUE)
+		if (isset($param['id_pinjaman']) == TRUE && $param['id_pinjaman'] != '')
 		{
 			$where += array($this->table_id => $param['id_pinjaman']);
 		}

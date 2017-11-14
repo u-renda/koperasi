@@ -25,6 +25,98 @@ function goBack() {
     window.history.back();
 }
 
+function resubmit_angsuran(grid) {
+	$(grid).kendoGrid({
+		dataSource: {
+			transport: {
+				read: {
+					url: "angsuran_get",
+					dataType: "json",
+					type: "POST",
+					data: {
+						status : $('#status').val()
+					}
+				}
+			},
+			schema: {
+				data: "results",
+				total: "total"
+			},
+			pageSize: 20,
+			serverPaging: true,
+			serverSorting: true,
+			serverFiltering: true,
+			cache: false
+		},
+		sortable: {
+			mode: "single",
+			allowUnsort: true
+		},
+		pageable: {
+			buttonCount: 5,
+			input: true,
+			pageSizes: true,
+			refresh: true
+		},
+		filterable: {
+			extra: false,
+			operators: {
+				string: {
+					contains: "Mengandung kata"
+				}
+			}
+		},
+		selectable: "row",
+		resizable: true,
+		columns: [{
+			field: "No",
+			sortable: false,
+			filterable: false,
+			width: 30
+		},
+		{
+			field: "Anggota",
+			sortable: false,
+			width: 100
+		},
+		{
+			field: "TglAngsuran",
+			title: "Tgl Angsuran",
+			sortable: false,
+			filterable: false,
+			width: 100
+		},
+		{
+			field: "AngsuranKe",
+			title: "Angsuran Ke",
+			sortable: false,
+			filterable: false,
+			width: 70
+		},
+		{
+			field: "JumlahAngsuran",
+			title: "Jumlah Angsuran",
+			sortable: false,
+			filterable: false,
+			width: 100
+		},
+		{
+			field: "Status",
+			sortable: false,
+			filterable: false,
+			width: 100,
+			template: "#= data.Status #"
+		},
+		{
+			field: "Aksi",
+			sortable: false,
+			filterable: false,
+			width: 70,
+			template: "#= data.Aksi #"
+		}]
+	});
+}
+
 $(function () {
     // Admin Tipe Lists
     if (document.getElementById('admin_tipe_lists_page') != null) {
@@ -532,85 +624,13 @@ $(function () {
 	
     // Angsuran Lists
     if (document.getElementById('angsuran_lists_page') != null) {
-        $("#multipleTable").kendoGrid({
-            dataSource: {
-                transport: {
-                    read: {
-                        url: "angsuran_get",
-                        dataType: "json",
-                        type: "POST",
-                        data: {}
-                    }
-                },
-                schema: {
-                    data: "results",
-                    total: "total"
-                },
-                pageSize: 20,
-                serverPaging: true,
-                serverSorting: true,
-                serverFiltering: true,
-                cache: false
-            },
-            sortable: {
-                mode: "single",
-                allowUnsort: true
-            },
-            pageable: {
-                buttonCount: 5,
-                input: true,
-                pageSizes: true,
-                refresh: true
-            },
-            filterable: {
-                extra: false,
-                operators: {
-                    string: {
-                        contains: "Mengandung kata"
-                    }
-                }
-            },
-            selectable: "row",
-            resizable: true,
-            columns: [{
-                field: "No",
-                sortable: false,
-                filterable: false,
-                width: 30
-            },
-            {
-                field: "Anggota",
-                sortable: false,
-                width: 100
-            },
-            {
-                field: "TglAngsuran",
-				title: "Tgl Angsuran",
-                sortable: false,
-                filterable: false,
-                width: 100
-            },
-            {
-                field: "AngsuranKe",
-				title: "Angsuran Ke",
-                sortable: false,
-                filterable: false,
-                width: 100
-            },
-            {
-                field: "JumlahAngsuran",
-				title: "Jumlah Angsuran",
-                sortable: false,
-                filterable: false,
-                width: 100
-            },
-            {
-                field: "Aksi",
-                sortable: false,
-                filterable: false,
-                width: 70,
-                template: "#= data.Aksi #"
-            }]
+		grid = '#multipleTable';
+        resubmit_angsuran(grid);
+        
+        $('#form_lists').submit(function (){
+            resubmit_angsuran(grid);
+            $(grid).data('kendoGrid').refresh();
+            return false;
         });
     }
 	

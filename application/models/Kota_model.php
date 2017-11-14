@@ -20,11 +20,11 @@ class Kota_model extends CI_Model {
     function info($param)
     {
         $where = array();
-        if (isset($param['nama']) == TRUE)
+        if (isset($param['nama']) == TRUE && $param['nama'] != '')
         {
             $where += array('nama' => $param['nama']);
         }
-        if (isset($param['id_provinsi']) == TRUE)
+        if (isset($param['id_provinsi']) == TRUE && $param['id_provinsi'] != '')
         {
             $where += array('id_provinsi' => $param['id_provinsi']);
         }
@@ -56,7 +56,7 @@ class Kota_model extends CI_Model {
 		}
 		
 		$where = array();
-		if (isset($param['id_provinsi']) == TRUE)
+		if (isset($param['id_provinsi']) == TRUE && $param['id_provinsi'] != '')
 		{
 			$where += array('id_provinsi' => $param['id_provinsi']);
 		}

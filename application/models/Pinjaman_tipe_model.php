@@ -9,6 +9,21 @@ class Pinjaman_tipe_model extends CI_Model {
     {
         parent::__construct();
     }
+	
+	function info($param)
+	{
+		$where = array();
+		if (isset($param['id_pinjaman_tipe']) == TRUE && $param['id_pinjaman_tipe'] != '')
+		{
+			$where += array($this->table_id => $param['id_pinjaman_tipe']);
+		}
+		
+		$this->db->select($this->table_id.', nama, created_date, updated_date');
+        $this->db->from($this->table);
+        $this->db->where($where);
+        $query = $this->db->get();
+        return $query;
+	}
     
     function lists($param)
     {

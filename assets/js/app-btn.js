@@ -152,29 +152,6 @@ $(function () {
             });
             return false;
         });
-		
-        // Tambah Angsuran
-		$('body').delegate(".tambahAngsuran", "click", function() {
-            var action = "angsuran_create";
-            var id_anggota = $(this).attr("id");
-            var dataString = 'id_anggota=' + id_anggota;
-            $.ajax(
-            {
-                type: "POST",
-                url: newPathname + action,
-                data: dataString,
-                cache: false,
-                success: function(data)
-                {
-                    $('.modal-dialog').removeClass('modal-lg');
-                    $('.modal-dialog').removeClass('modal-sm');
-                    $('.modal-title').text('Tambah Angsuran');
-                    $('.modal-body').html(data);
-                    $('#myModal').modal('show');
-                }
-            });
-            return false;
-        });
     }
 	
     // Admin Lists
@@ -205,7 +182,28 @@ $(function () {
 	
     // Pinjaman Lists
     if (document.getElementById('pinjaman_lists_page') != null) {
-        
+        // Tambah Angsuran
+		$('body').delegate(".tambahAngsuran", "click", function() {
+            var action = "angsuran_create";
+            var id_pinjaman = $(this).attr("id");
+            var dataString = 'id_pinjaman=' + id_pinjaman;
+            $.ajax(
+            {
+                type: "POST",
+                url: newPathname + action,
+                data: dataString,
+                cache: false,
+                success: function(data)
+                {
+                    $('.modal-dialog').removeClass('modal-lg');
+                    $('.modal-dialog').removeClass('modal-sm');
+                    $('.modal-title').text('Tambah Angsuran');
+                    $('.modal-body').html(data);
+                    $('#myModal').modal('show');
+                }
+            });
+            return false;
+        });
     }
 	
     // Angsuran Lists

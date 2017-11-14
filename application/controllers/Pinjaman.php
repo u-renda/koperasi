@@ -8,7 +8,6 @@ class Pinjaman extends CI_Controller {
         parent::__construct();
 		$this->load->model('anggota_model');
 		$this->load->model('angsuran_model');
-		$this->load->model('pinjaman_detail_model');
 		$this->load->model('pinjaman_model');
 		$this->load->model('pinjaman_tipe_model');
 		
@@ -18,23 +17,20 @@ class Pinjaman extends CI_Controller {
 	function angsuran_create()
 	{
 		$data = array();
-        $data['id_anggota'] = $this->input->post('id_anggota');
+        $data['id_pinjaman'] = $this->input->post('id_pinjaman');
 		
 		if ($this->input->post('submit') == TRUE)
 		{
+			$id_angsuran = $this->input->post('id_angsuran');
 			$param = array();
-			$param['id_anggota'] = $data['id_anggota'];
-			$param['tgl_pinjam'] = date('Y-m-d H:i:s', strtotime($this->input->post('tgl_pinjam')));
-			$param['jumlah_pinjaman'] = $this->input->post('jumlah_pinjaman');
-			$param['tgl_jatuh_tempo'] = date('Y-m-d', strtotime($this->input->post('tgl_jatuh_tempo')));
-			$param['status'] = 1;
-			$param['created_date'] = date('Y-m-d H:i:s');
+			$param['tgl_angsuran'] = date('Y-m-d', strtotime($this->input->post('tgl_angsuran')));
+			$param['status'] = 2;
 			$param['updated_date'] = date('Y-m-d H:i:s');
-			$query = $this->pinjaman_model->create($param);
+			$query = $this->angsuran_model->update($id_angsuran, $param);
 
 			if ($query > 0)
 			{
-				$location = $this->config->item('link_pinjaman_lists');
+				$location = $this->config->item('link_angsuran_invoice').'?id_angsuran='.$id_angsuran;
 				$response = array('text' => 'Berhasil', 'type' => 'success', 'title' => 'Create', 'location' => $location);
 			}
 			else
@@ -47,16 +43,41 @@ class Pinjaman extends CI_Controller {
 		}
 		else
 		{
-			// Anggota
+			// Pinjaman
+			$pinjaman = array();
 			$anggota = array();
-			$query2 = $this->anggota_model->info(array('id_anggota' => $data['id_anggota']));
+			$angsuran = array();
+			$query3 = $this->pinjaman_model->info(array('id_pinjaman' => $data['id_pinjaman']));
 			
-			if ($query2->num_rows() > 0)
+			if ($query3->num_rows() > 0)
 			{
-				$anggota = $query2->row();
+				$pinjaman = $query3->row();
+				
+				// Anggota
+				$query2 = $this->anggota_model->info(array('id_anggota' => $pinjaman->id_anggota));
+				
+				if ($query2->num_rows() > 0)
+				{
+					$anggota = $query2->row();
+				}
+				
+				// Angsuran
+				$param2 = array();
+				$param2['id_pinjaman'] = $pinjaman->id_pinjaman;
+				$param2['order'] = 'angsuran_ke';
+				$param2['sort'] = 'asc';
+				$param2['status'] = 1;
+				$query4 = $this->angsuran_model->lists($param2);
+				
+				if ($query4->num_rows() > 0)
+				{
+					$angsuran = $query4->first_row();
+				}
 			}
 			
+			$data['pinjaman'] = $pinjaman;
 			$data['anggota'] = $anggota;
+			$data['angsuran'] = $angsuran;
 			$this->load->view('pinjaman/angsuran_create', $data);
 		}
 	}
@@ -71,6 +92,7 @@ class Pinjaman extends CI_Controller {
         $sort = 'desc';
         $sort_post = $this->input->post('sort');
         $filter = $this->input->post('filter');
+        $status = $this->input->post('status');
 
         if ($sort_post)
         {
@@ -78,7 +100,7 @@ class Pinjaman extends CI_Controller {
             $sort = $sort_post[0]['dir'];
         }
 
-        $query = $this->angsuran_model->lists(array('limit' => $pageSize, 'offset' => $offset, 'order' => $order, 'sort' => $sort));
+        $query = $this->angsuran_model->lists(array('limit' => $pageSize, 'offset' => $offset, 'order' => $order, 'sort' => $sort, 'status' => $status));
         $jsonData = array('total' => $query->num_rows(), 'results' => array());
 
         foreach ($query->result() as $row)
@@ -86,6 +108,11 @@ class Pinjaman extends CI_Controller {
             $action = '<a title="View" id="'.$row->id_angsuran.'" class="view '.$row->id_angsuran.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
 						<a title="Edit" id="'.$row->id_angsuran.'" class="edit '.$row->id_angsuran.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
                         <a title="Delete" id="'.$row->id_angsuran.'" class="delete '.$row->id_angsuran.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
+			
+			if ($row->status == 2)
+			{
+				$action .= '&nbsp;&nbsp;<a title="Print" href="'.$this->config->item('link_angsuran_print').'?id_angsuran='.$row->id_angsuran.'" target="_blank"><i class="fa fa-print h4 text-dark"></i></a>';
+			}
 			
 			$nama_anggota = '';
 			$query2 = $this->pinjaman_model->info(array('id_pinjaman' => $row->id_pinjaman));
@@ -95,12 +122,21 @@ class Pinjaman extends CI_Controller {
 				$nama_anggota = ucwords($query2->row()->nama);
 			}
 			
+			$code_angsuran_status = $this->config->item('code_angsuran_status');
+			$status = $code_angsuran_status[$row->status];
+			
+			if ($row->status == 2)
+			{
+				$status = '<span class="well well-sm success">'.$code_angsuran_status[$row->status].'</span>';
+			}
+			
             $entry = array(
                 'No' => $i,
                 'Anggota' => $nama_anggota,
                 'TglAngsuran' => $row->tgl_angsuran,
                 'AngsuranKe' => $row->angsuran_ke,
                 'JumlahAngsuran' => number_format($row->jumlah_angsuran, 0, ',','.'),
+                'Status' => $status,
                 'Aksi' => $action
             );
 
@@ -110,12 +146,66 @@ class Pinjaman extends CI_Controller {
 
         echo json_encode($jsonData);
 	}
+	
+	function angsuran_invoice()
+	{
+		$data = array();
+		$id_angsuran = $this->input->get('id_angsuran');
+		$query = $this->angsuran_model->info(array('id_angsuran' => $id_angsuran));
+		
+		if ($query->num_rows() > 0)
+		{
+			$angsuran = $query->row();
+			$query3 = $this->anggota_model->info(array('id_anggota' => $angsuran->id_anggota));
+				
+			if ($query3->num_rows() > 0)
+			{
+				$data['anggota'] = $query3->row();
+			}
+			
+			$data['angsuran'] = $angsuran;
+		}
+		
+		$data['view_content'] = 'pinjaman/angsuran_invoice';
+		$this->load->view('templates/frame', $data);
+	}
 
 	function angsuran_lists()
 	{
 		$data = array();
+		$data['code_angsuran_status'] = $this->config->item('code_angsuran_status');
+		$data['status'] = $this->input->get_post('status');
 		$data['view_content'] = 'pinjaman/angsuran_lists';
 		$this->load->view('templates/frame', $data);
+	}
+	
+	function angsuran_print()
+	{
+		$data = array();
+		$id_angsuran = $this->input->get('id_angsuran');
+		
+		if ($id_angsuran != '')
+		{
+			$query = $this->angsuran_model->info(array('id_angsuran' => $id_angsuran));
+		
+			if ($query->num_rows() > 0)
+			{
+				$angsuran = $query->row();
+				$query3 = $this->anggota_model->info(array('id_anggota' => $angsuran->id_anggota));
+					
+				if ($query3->num_rows() > 0)
+				{
+					$data['anggota'] = $query3->row();
+				}
+				
+				$data['angsuran'] = $angsuran;
+				$this->load->view('pinjaman/angsuran_print', $data);
+			}
+		}
+		else
+		{
+			echo "Data not found";
+		}
 	}
 
 	function pinjaman_create()
@@ -141,25 +231,43 @@ class Pinjaman extends CI_Controller {
 
 			if ($query != 0 || $query != '')
 			{
-				// Masukkan detailnya
+				// Masukkan angsurannya
+				$query5 = $this->pinjaman_tipe_model->info(array('id_pinjaman_tipe' => $param['id_pinjaman_tipe']));
+				
+				if ($query5->row()->nama == 'bulanan')
+				{
+					$plus = '+1 month';
+				}
+				elseif ($query5->row()->nama == 'mingguan')
+				{
+					$plus = '+1 week';
+				}
+				else
+				{
+					$plus = '+1 day';
+				}
+				
 				$sisa = $param['jumlah_pinjaman'];
-				$tgl_pembayaran = date('Y-m-d', strtotime('+1 month', strtotime($this->input->post('tgl_pinjam'))));
+				$tgl_pembayaran = date('Y-m-d', strtotime($plus, strtotime($this->input->post('tgl_pinjam'))));
 				
 				for ($i = 0; $i < $param['kali_angsuran']; $i++)
 				{
+					$j = $i + 1;
 					$param2 = array();
 					$param2['id_pinjaman'] = $query;
 					$param2['tgl_pembayaran'] = $tgl_pembayaran;
+					$param2['angsuran_ke'] = $j;
 					$param2['pokok'] = $param['jumlah_pinjaman'] / $param['kali_angsuran'];
 					$param2['bunga'] = $param['jumlah_pinjaman'] * ($param['bunga'] / 100);
-					$param2['jumlah'] = $param2['pokok'] + $param2['bunga'];
-					$param2['sisa'] = $sisa - $param2['pokok'];
+					$param2['jumlah_angsuran'] = $param2['pokok'] + $param2['bunga'];
+					$param2['sisa_pinjaman'] = $sisa - $param2['pokok'];
+					$param2['status'] = 1;
 					$param2['created_date'] = date('Y-m-d H:i:s');
 					$param2['updated_date'] = date('Y-m-d H:i:s');
-					$query4 = $this->pinjaman_detail_model->create($param2);
+					$query4 = $this->angsuran_model->create($param2);
 					
-					$sisa = $param2['sisa'];
-					$tgl_pembayaran = date('Y-m-d', strtotime('+1 month', strtotime($param2['tgl_pembayaran'])));
+					$sisa = $param2['sisa_pinjaman'];
+					$tgl_pembayaran = date('Y-m-d', strtotime($plus, strtotime($param2['tgl_pembayaran'])));
 				}
 				
 				$location = $this->config->item('link_pinjaman_lists');
@@ -228,7 +336,7 @@ class Pinjaman extends CI_Controller {
 						<a title="Edit" id="'.$row->id_pinjaman.'" class="edit '.$row->id_pinjaman.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
                         <a title="Delete" id="'.$row->id_pinjaman.'" class="delete '.$row->id_pinjaman.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
 			
-			$angsuran = '<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary tambahAngsuran '.$row->id_anggota.'-tambahAngsuran" id="'.$row->id_anggota.'"><i class="fa fa-plus"></i> Tambah</button>';
+			$angsuran = '<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary tambahAngsuran '.$row->id_pinjaman.'-tambahAngsuran" id="'.$row->id_pinjaman.'"><i class="fa fa-plus"></i> Tambah</button>';
 			
 			if ($row->status == 2)
 			{

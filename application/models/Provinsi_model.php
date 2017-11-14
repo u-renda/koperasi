@@ -20,11 +20,11 @@ class Provinsi_model extends CI_Model {
     function info($param)
     {
 		$where = array();
-		if (isset($param['id_provinsi']) == TRUE)
+		if (isset($param['id_provinsi']) == TRUE && $param['id_provinsi'] != '')
 		{
 			$where += array($this->table_id => $param['id_provinsi']);
 		}
-		if (isset($param['nama']) == TRUE)
+		if (isset($param['nama']) == TRUE && $param['nama'] != '')
 		{
 			$where += array('nama' => $param['nama']);
 		}

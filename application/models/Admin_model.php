@@ -20,23 +20,23 @@ class Admin_model extends CI_Model {
     function info($param)
     {
         $where = array();
-        if (isset($param['id_admin']) == TRUE)
+        if (isset($param['id_admin']) == TRUE && $param['id_admin'] != '')
         {
             $where += array($this->table_id => $param['id_admin']);
         }
-        if (isset($param['username']) == TRUE)
+        if (isset($param['username']) == TRUE && $param['username'] != '')
         {
             $where += array('username' => $param['username']);
         }
-        if (isset($param['password']) == TRUE)
+        if (isset($param['password']) == TRUE && $param['password'] != '')
         {
             $where += array('password' => $param['password']);
         }
-        if (isset($param['nama']) == TRUE)
+        if (isset($param['nama']) == TRUE && $param['nama'] != '')
         {
-            $where += array('nama' => $param['nama']);
+            $where += array('nama' => $param['nama'] && $param['id_admin'] != '');
         }
-        if (isset($param['email']) == TRUE)
+        if (isset($param['email']) == TRUE && $param['email'] != '')
         {
             $where += array('email' => $param['email']);
         }

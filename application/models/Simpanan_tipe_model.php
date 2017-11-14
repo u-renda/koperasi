@@ -20,7 +20,7 @@ class Simpanan_tipe_model extends CI_Model {
     function info($param)
     {
 		$where = array();
-		if (isset($param['nama']) == TRUE)
+		if (isset($param['nama']) == TRUE && $param['nama'] != '')
 		{
 			$where += array('nama' => $param['nama']);
 		}

@@ -87,7 +87,7 @@
                         <ul class="nav nav-children">
                             <li class="list-child">
                                 <a href="<?php echo $this->config->item('link_simpanan_lists'); ?>">
-                                     Daftar Simpanan
+                                     Simpanan Reguler
                                 </a>
                             </li>
                             <!--<li class="list-child">
@@ -97,7 +97,7 @@
                             </li>-->
                             <li class="list-child">
                                 <a href="<?php echo $this->config->item('link_deposito_lists'); ?>">
-                                     Daftar Deposito
+                                     Deposito
                                 </a>
                             </li>
                         </ul>

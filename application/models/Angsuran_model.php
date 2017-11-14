@@ -10,6 +10,33 @@ class Angsuran_model extends CI_Model {
         parent::__construct();
     }
     
+    function create($param)
+    {
+        $this->db->set($this->table_id, 'UUID_SHORT()', FALSE);
+		$query = $this->db->insert($this->table, $param);
+		return $query;
+    }
+	
+	function info($param)
+	{
+		
+		$where = array();
+		if (isset($param['id_angsuran']) == TRUE && $param['id_angsuran'] != '')
+		{
+			$where += array($this->table_id => $param['id_angsuran']);
+		}
+		
+		$this->db->select($this->table_id.', '.$this->table.'.id_pinjaman, no_angsuran, tgl_pembayaran,
+						  tgl_angsuran, angsuran_ke, pokok, '.$this->table.'.bunga, jumlah_angsuran,
+						  sisa_pinjaman, '.$this->table.'.status, '.$this->table.'.created_date,
+						  '.$this->table.'.updated_date, id_anggota, no_pinjaman');
+        $this->db->from($this->table);
+        $this->db->join('pinjaman', $this->table.'.id_pinjaman = pinjaman.id_pinjaman', 'left');
+        $this->db->where($where);
+        $query = $this->db->get();
+        return $query;
+	}
+    
     function lists($param)
     {
 		if (isset($param['limit']) == FALSE)
@@ -29,12 +56,31 @@ class Angsuran_model extends CI_Model {
 			$param['sort'] = 'DESC';
 		}
 		
-        $this->db->select($this->table_id.', id_pinjaman, no_angsuran, tgl_angsuran, angsuran_ke,
-						  jumlah_angsuran, sisa_pinjaman, created_date, updated_date');
+		$where = array();
+		if (isset($param['id_pinjaman']) == TRUE && $param['id_pinjaman'] != '')
+		{
+			$where += array('id_pinjaman' => $param['id_pinjaman']);
+		}
+		if (isset($param['status']) == TRUE && $param['status'] != '')
+		{
+			$where += array('status' => $param['status']);
+		}
+		
+        $this->db->select($this->table_id.', id_pinjaman, no_angsuran, tgl_pembayaran, tgl_angsuran,
+						  angsuran_ke, pokok, bunga, jumlah_angsuran, sisa_pinjaman, status,
+						  created_date, updated_date');
         $this->db->from($this->table);
+        $this->db->where($where);
         $this->db->order_by($param['order'], $param['sort']);
         $this->db->limit($param['limit'], $param['offset']);
         $query = $this->db->get();
         return $query;
     }
+	
+	function update($id, $param)
+	{
+		$this->db->where($this->table_id, $id);
+        $query = $this->db->update($this->table, $param);
+        return $query;
+	}
 }

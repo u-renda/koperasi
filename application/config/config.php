@@ -527,6 +527,8 @@ $config['proxy_ips'] = '';
 
 
 /* EXTRA */
+$config['alamat'] = 'Surabaya';
+$config['telp'] = '(031)';
 $config['title'] = 'Koperasi Arthadiro Sejahtera';
 
 /* LINK */
@@ -538,7 +540,10 @@ $config['link_admin_tipe_lists'] = $config['base_url'].'admin_tipe_lists';
 $config['link_akun_saya'] = $config['base_url'].'akun_saya';
 $config['link_anggota_create'] = $config['base_url'].'anggota_create';
 $config['link_anggota_lists'] = $config['base_url'].'anggota_lists';
+$config['link_angsuran_create'] = $config['base_url'].'angsuran_create';
+$config['link_angsuran_invoice'] = $config['base_url'].'angsuran_invoice';
 $config['link_angsuran_lists'] = $config['base_url'].'angsuran_lists';
+$config['link_angsuran_print'] = $config['base_url'].'angsuran_print';
 $config['link_deposito_lists'] = $config['base_url'].'deposito_lists';
 $config['link_home'] = $config['base_url'].'home';
 $config['link_kota_create'] = $config['base_url'].'kota_create';
@@ -575,4 +580,9 @@ $config['code_simpanan_status'] = array(
 $config['code_jenis_kelamin'] = array(
 	1 => 'Laki-laki',
 	2 => 'Perempuan'
+);
+
+$config['code_angsuran_status'] = array(
+	1 => 'Belum Dibayar',
+	2 => 'Sudah Dibayar'
 );

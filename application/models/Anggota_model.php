@@ -20,15 +20,15 @@ class Anggota_model extends CI_Model {
     function info($param)
     {
         $where = array();
-        if (isset($param['no_anggota']) == TRUE)
+        if (isset($param['no_anggota']) == TRUE && $param['no_anggota'] != '')
         {
             $where += array('no_anggota' => $param['no_anggota']);
         }
-        if (isset($param['nama']) == TRUE)
+        if (isset($param['nama']) == TRUE && $param['nama'] != '')
         {
             $where += array('nama' => $param['nama']);
         }
-        if (isset($param['id_anggota']) == TRUE)
+        if (isset($param['id_anggota']) == TRUE && $param['id_anggota'] != '')
         {
             $where += array($this->table_id => $param['id_anggota']);
         }
