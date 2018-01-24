@@ -34,7 +34,7 @@
 		<section class="body-sign">
 			<div class="center-sign">
 				<a href="<?php echo base_url(); ?>" class="logo pull-left">
-					<img src="<?php echo base_url('assets/images').'/logo.png'; ?>" height="54" alt="<?php echo $this->config->item('title'); ?>" />
+					<img src="<?php echo base_url('assets/images').'/logo.jpeg'; ?>" height="54" alt="<?php echo $this->config->item('title'); ?>" />
 				</a>
 
 				<div class="panel panel-sign">

@@ -53,7 +53,7 @@ if ( ! function_exists('angsuran_invoice')) {
 				<table style="border: 1px solid;">
 					<tr>
 						<td style="border: 1px solid;">
-							<img src="'.base_url('assets/images').'/logo.png'.'" alt="'.$CI->config->item('title').'" width="50" style="text-align: right;" />
+							<img src="'.base_url('assets/images').'/logo.jpeg'.'" alt="'.$CI->config->item('title').'" width="50" style="text-align: right;" />
 						</td>
 						<td style="border: 1px solid; text-align: right;">
 							<h2 style="margin-top: 0; margin-bottom: 10px;">BUKTI PEMBAYARAN</h2>

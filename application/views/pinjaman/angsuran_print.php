@@ -24,7 +24,7 @@
 							<?php echo 'Telp:'.$this->config->item('telp'); ?>
 						</address>
 						<div class="ib">
-							<img src="<?php echo base_url('assets/images').'/logo.png'; ?>" alt="<?php echo $this->config->item('title'); ?>" />
+							<img src="<?php echo base_url('assets/images').'/logo.jpeg'; ?>" alt="<?php echo $this->config->item('title'); ?>" />
 						</div>
 					</div>
 				</div>
