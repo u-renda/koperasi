@@ -16,6 +16,13 @@ class Angsuran_model extends CI_Model {
 		$query = $this->db->insert($this->table, $param);
 		return $query;
     }
+    
+    function delete($id)
+    {
+        $this->db->where($this->table_id, $id);
+        $query = $this->db->delete($this->table);
+        return $query;
+    }
 	
 	function info($param)
 	{
@@ -29,7 +36,8 @@ class Angsuran_model extends CI_Model {
 		$this->db->select($this->table_id.', '.$this->table.'.id_pinjaman, no_angsuran, tgl_pembayaran,
 						  tgl_angsuran, angsuran_ke, pokok, '.$this->table.'.bunga, jumlah_angsuran,
 						  sisa_pinjaman, '.$this->table.'.status, '.$this->table.'.created_date,
-						  '.$this->table.'.updated_date, id_anggota, no_pinjaman');
+						  '.$this->table.'.updated_date, pinjaman.id_anggota AS id_anggota,
+						  pinjaman.no_pinjaman AS no_pinjaman');
         $this->db->from($this->table);
         $this->db->join('pinjaman', $this->table.'.id_pinjaman = pinjaman.id_pinjaman', 'left');
         $this->db->where($where);

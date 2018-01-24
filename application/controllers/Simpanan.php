@@ -79,6 +79,44 @@ class Simpanan extends CI_Controller {
 			$this->load->view('simpanan/simpanan_create', $data);
 		}
 	}
+
+    function simpanan_delete()
+    {
+        $data = array();
+        $data['id'] = $this->input->post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+
+        $get = $this->simpanan_model->info(array('id_simpanan' => $data['id']));
+
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('delete') == TRUE)
+            {
+                $query = $this->simpanan_model->delete($data['id']);
+
+                if ($query > 0)
+                {
+                    $response = array('text' => 'Success', 'type' => 'success', 'title' => 'Delete');
+                }
+                else
+                {
+                    $response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Delete');
+                }
+
+                echo json_encode($response);
+                exit();
+            }
+            else
+            {
+                $this->load->view('delete_confirm', $data);
+            }
+        }
+        else
+        {
+            echo "Data Not Found";
+        }
+    }
 	
 	function simpanan_detail_create()
 	{
@@ -152,6 +190,51 @@ class Simpanan extends CI_Controller {
 		}
 	}
 
+    function simpanan_detail_delete()
+    {
+        $data = array();
+        $data['id'] = $this->input->post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+
+        $get = $this->simpanan_detail_model->info(array('id_simpanan_detail' => $data['id']));
+
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('delete') == TRUE)
+            {
+				$id_simpanan = $get->row()->id_simpanan;
+                $query = $this->simpanan_detail_model->delete($data['id']);
+
+                if ($query > 0)
+                {
+					// delete simpanan
+					if ($get->row()->urutan == 1)
+					{
+						$query2 = $this->simpanan_model->delete($id_simpanan);
+					}
+					
+                    $response = array('text' => 'Success', 'type' => 'success', 'title' => 'Delete');
+                }
+                else
+                {
+                    $response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Delete');
+                }
+
+                echo json_encode($response);
+                exit();
+            }
+            else
+            {
+                $this->load->view('delete_confirm', $data);
+            }
+        }
+        else
+        {
+            echo "Data Not Found";
+        }
+    }
+
 	function simpanan_detail_get()
 	{
 		$page = $this->input->post('page') ? $this->input->post('page') : 1;
@@ -177,9 +260,9 @@ class Simpanan extends CI_Controller {
 			$code_simpanan_detail_status = $this->config->item('code_simpanan_detail_status');
 			
             $action = '<a title="View" id="'.$row->id_simpanan_detail.'" class="view '.$row->id_simpanan_detail.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
-						<a title="Edit" id="'.$row->id_simpanan_detail.'" class="edit '.$row->id_simpanan_detail.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
-                        <a title="Delete" id="'.$row->id_simpanan_detail.'" class="delete '.$row->id_simpanan_detail.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
-
+						<a title="Delete" id="'.$row->id_simpanan_detail.'" class="delete '.$row->id_simpanan_detail.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
+			//<a title="Edit" id="'.$row->id_simpanan_detail.'" class="edit '.$row->id_simpanan_detail.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
+                        
             $entry = array(
                 'No' => $i,
                 'NoTransaksi' => $row->no_transaksi,
@@ -226,9 +309,9 @@ class Simpanan extends CI_Controller {
         foreach ($query->result() as $row)
         {
             $action = '<a title="View" id="'.$row->id_simpanan.'" class="view '.$row->id_simpanan.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
-						<a title="Edit" id="'.$row->id_simpanan.'" class="edit '.$row->id_simpanan.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
-                        <a title="Delete" id="'.$row->id_simpanan.'" class="delete '.$row->id_simpanan.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
-			
+						<a title="Delete" id="'.$row->id_simpanan.'" class="delete '.$row->id_simpanan.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
+			//<a title="Edit" id="'.$row->id_simpanan.'" class="edit '.$row->id_simpanan.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
+                        
 			$setor_tarik = '<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary tambahSetorTarik '.$row->id_simpanan.'-tambahSetorTarik" id="'.$row->id_simpanan.'"><i class="fa fa-plus"></i> Tambah</button>';
 			
 			// get saldo akhir

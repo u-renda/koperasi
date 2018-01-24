@@ -18,6 +18,13 @@ class Simpanan_model extends CI_Model {
 		return $id;
     }
     
+    function delete($id)
+    {
+        $this->db->where($this->table_id, $id);
+        $query = $this->db->delete($this->table);
+        return $query;
+    }
+    
     function info($param)
     {
 		$where = array();
@@ -73,4 +80,11 @@ class Simpanan_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+	
+	function update($id, $param)
+	{
+		$this->db->where($this->table_id, $id);
+        $query = $this->db->update($this->table, $param);
+        return $query;
+	}
 }

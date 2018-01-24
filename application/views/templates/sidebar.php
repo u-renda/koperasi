@@ -61,7 +61,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-parent list-parent">
+                    <li class="nav-parent list-parent" id="masterPinjaman">
                         <a>
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
                             <span>Pinjaman</span>
@@ -72,7 +72,7 @@
                                      Daftar Pinjaman
                                 </a>
                             </li>
-                            <li class="list-child">
+                            <li class="list-child" id="angsuran">
                                 <a href="<?php echo $this->config->item('link_angsuran_lists'); ?>">
                                      Daftar Angsuran
                                 </a>

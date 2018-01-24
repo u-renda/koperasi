@@ -46,11 +46,11 @@ class Lainnya extends CI_Controller {
 
                     if ($query > 0)
                     {
-						$notif = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>Perubahan data berhasil.</div>';
+						$notif = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>Perubahan data berhasil.</div>';
                     }
                     else
                     {
-                        $notif = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>Perubahan data gagal.</div>';
+                        $notif = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>Perubahan data gagal.</div>';
                     }
                 }
             }
@@ -73,11 +73,11 @@ class Lainnya extends CI_Controller {
 
                     if ($query > 0)
                     {
-						$notif = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>Perubahan data berhasil.</div>';
+						$notif = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>Perubahan data berhasil.</div>';
                     }
                     else
                     {
-                        $notif = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>Perubahan data gagal.</div>';
+                        $notif = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>Perubahan data gagal.</div>';
                     }
                 }
 			}

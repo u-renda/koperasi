@@ -45,6 +45,82 @@ class Master_data extends CI_Controller {
 		}
 	}
 
+    function admin_tipe_delete()
+    {
+        $data = array();
+        $data['id'] = $this->input->post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+
+        $get = $this->admin_tipe_model->info(array('id_admin_tipe' => $data['id']));
+
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('delete') == TRUE)
+            {
+                $query = $this->admin_tipe_model->delete($data['id']);
+
+                if ($query > 0)
+                {
+                    $response = array('text' => 'Success', 'type' => 'success', 'title' => 'Delete');
+                }
+                else
+                {
+                    $response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Delete');
+                }
+
+                echo json_encode($response);
+                exit();
+            }
+            else
+            {
+                $this->load->view('delete_confirm', $data);
+            }
+        }
+        else
+        {
+            echo "Data Not Found";
+        }
+    }
+
+    function admin_tipe_edit()
+    {
+		$data = array();
+        $data['id'] = $this->input->get_post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+		
+        $get = $this->admin_tipe_model->info(array('id_admin_tipe' => $data['id']));
+		
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('submit') == TRUE)
+            {
+				$param = array();
+				$param['nama'] = $this->input->post('nama');
+				$param['updated_date'] = date('Y-m-d H:i:s');
+				$query = $this->admin_tipe_model->update($data['id'], $param);
+
+				if ($query > 0)
+				{
+					$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Edit');
+				}
+				else
+				{
+					$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Edit');
+				}
+	
+				echo json_encode($response);
+				exit();
+            }
+			else
+			{
+				$data['result'] = $get->row();
+				$this->load->view('master_data/admin_tipe_edit', $data);
+			}
+        }
+    }
+
 	function admin_tipe_get()
 	{
 		$page = $this->input->post('page') ? $this->input->post('page') : 1;
@@ -123,6 +199,82 @@ class Master_data extends CI_Controller {
 			$this->load->view('master_data/kota_create', $data);
 		}
 	}
+
+    function kota_delete()
+    {
+        $data = array();
+        $data['id'] = $this->input->post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+
+        $get = $this->kota_model->info(array('id_kota' => $data['id']));
+
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('delete') == TRUE)
+            {
+                $query = $this->kota_model->delete($data['id']);
+
+                if ($query > 0)
+                {
+                    $response = array('text' => 'Success', 'type' => 'success', 'title' => 'Delete');
+                }
+                else
+                {
+                    $response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Delete');
+                }
+
+                echo json_encode($response);
+                exit();
+            }
+            else
+            {
+                $this->load->view('delete_confirm', $data);
+            }
+        }
+        else
+        {
+            echo "Data Not Found";
+        }
+    }
+
+    function kota_edit()
+    {
+		$data = array();
+        $data['id'] = $this->input->get_post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+		
+        $get = $this->kota_model->info(array('id_kota' => $data['id']));
+		
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('submit') == TRUE)
+            {
+				$param = array();
+				$param['nama'] = $this->input->post('nama');
+				$param['updated_date'] = date('Y-m-d H:i:s');
+				$query = $this->kota_model->update($data['id'], $param);
+
+				if ($query > 0)
+				{
+					$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Edit');
+				}
+				else
+				{
+					$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Edit');
+				}
+	
+				echo json_encode($response);
+				exit();
+            }
+			else
+			{
+				$data['result'] = $get->row();
+				$this->load->view('master_data/kota_edit', $data);
+			}
+        }
+    }
 
 	function kota_get()
 	{
@@ -218,6 +370,82 @@ class Master_data extends CI_Controller {
 		}
 	}
 
+    function provinsi_delete()
+    {
+        $data = array();
+        $data['id'] = $this->input->post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+
+        $get = $this->provinsi_model->info(array('id_provinsi' => $data['id']));
+
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('delete') == TRUE)
+            {
+                $query = $this->provinsi_model->delete($data['id']);
+
+                if ($query > 0)
+                {
+                    $response = array('text' => 'Success', 'type' => 'success', 'title' => 'Delete');
+                }
+                else
+                {
+                    $response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Delete');
+                }
+
+                echo json_encode($response);
+                exit();
+            }
+            else
+            {
+                $this->load->view('delete_confirm', $data);
+            }
+        }
+        else
+        {
+            echo "Data Not Found";
+        }
+    }
+
+    function provinsi_edit()
+    {
+		$data = array();
+        $data['id'] = $this->input->get_post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+		
+        $get = $this->provinsi_model->info(array('id_provinsi' => $data['id']));
+		
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('submit') == TRUE)
+            {
+				$param = array();
+				$param['nama'] = $this->input->post('nama');
+				$param['updated_date'] = date('Y-m-d H:i:s');
+				$query = $this->provinsi_model->update($data['id'], $param);
+
+				if ($query > 0)
+				{
+					$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Edit');
+				}
+				else
+				{
+					$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Edit');
+				}
+	
+				echo json_encode($response);
+				exit();
+            }
+			else
+			{
+				$data['result'] = $get->row();
+				$this->load->view('master_data/provinsi_edit', $data);
+			}
+        }
+    }
+
 	function provinsi_get()
 	{
 		$page = $this->input->post('page') ? $this->input->post('page') : 1;
@@ -294,6 +522,82 @@ class Master_data extends CI_Controller {
 			$this->load->view('master_data/simpanan_tipe_create', $data);
 		}
 	}
+
+    function simpanan_tipe_delete()
+    {
+        $data = array();
+        $data['id'] = $this->input->post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+
+        $get = $this->simpanan_tipe_model->info(array('id_simpanan_tipe' => $data['id']));
+
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('delete') == TRUE)
+            {
+                $query = $this->simpanan_tipe_model->delete($data['id']);
+
+                if ($query > 0)
+                {
+                    $response = array('text' => 'Success', 'type' => 'success', 'title' => 'Delete');
+                }
+                else
+                {
+                    $response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Delete');
+                }
+
+                echo json_encode($response);
+                exit();
+            }
+            else
+            {
+                $this->load->view('delete_confirm', $data);
+            }
+        }
+        else
+        {
+            echo "Data Not Found";
+        }
+    }
+
+    function simpanan_tipe_edit()
+    {
+		$data = array();
+        $data['id'] = $this->input->get_post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+		
+        $get = $this->simpanan_tipe_model->info(array('id_simpanan_tipe' => $data['id']));
+		
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('submit') == TRUE)
+            {
+				$param = array();
+				$param['nama'] = $this->input->post('nama');
+				$param['updated_date'] = date('Y-m-d H:i:s');
+				$query = $this->simpanan_tipe_model->update($data['id'], $param);
+
+				if ($query > 0)
+				{
+					$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Edit');
+				}
+				else
+				{
+					$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Edit');
+				}
+	
+				echo json_encode($response);
+				exit();
+            }
+			else
+			{
+				$data['result'] = $get->row();
+				$this->load->view('master_data/simpanan_tipe_edit', $data);
+			}
+        }
+    }
 
 	function simpanan_tipe_get()
 	{

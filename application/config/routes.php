@@ -87,40 +87,64 @@ $route['laporan_tunggakan'] = 'laporan/laporan_tunggakan';
 
 /* MASTER DATA */
 $route['admin_tipe_create'] = 'master_data/admin_tipe_create';
+$route['admin_tipe_delete'] = 'master_data/admin_tipe_delete';
+$route['admin_tipe_edit'] = 'master_data/admin_tipe_edit';
 $route['admin_tipe_get'] = 'master_data/admin_tipe_get';
 $route['admin_tipe_lists'] = 'master_data/admin_tipe_lists';
 $route['kota_create'] = 'master_data/kota_create';
+$route['kota_delete'] = 'master_data/kota_delete';
+$route['kota_edit'] = 'master_data/kota_edit';
 $route['kota_get'] = 'master_data/kota_get';
 $route['kota_lists'] = 'master_data/kota_lists';
 $route['provinsi_create'] = 'master_data/provinsi_create';
+$route['provinsi_delete'] = 'master_data/provinsi_delete';
+$route['provinsi_edit'] = 'master_data/provinsi_edit';
 $route['provinsi_get'] = 'master_data/provinsi_get';
 $route['provinsi_lists'] = 'master_data/provinsi_lists';
 $route['simpanan_tipe_create'] = 'master_data/simpanan_tipe_create';
+$route['simpanan_tipe_delete'] = 'master_data/simpanan_tipe_delete';
+$route['simpanan_tipe_edit'] = 'master_data/simpanan_tipe_edit';
 $route['simpanan_tipe_get'] = 'master_data/simpanan_tipe_get';
 $route['simpanan_tipe_lists'] = 'master_data/simpanan_tipe_lists';
 
 /* PINJAMAN */
 $route['angsuran_create'] = 'pinjaman/angsuran_create';
+$route['angsuran_delete'] = 'pinjaman/angsuran_delete';
+$route['angsuran_edit'] = 'pinjaman/angsuran_edit';
 $route['angsuran_get'] = 'pinjaman/angsuran_get';
 $route['angsuran_invoice'] = 'pinjaman/angsuran_invoice';
 $route['angsuran_lists'] = 'pinjaman/angsuran_lists';
 $route['angsuran_print'] = 'pinjaman/angsuran_print';
+$route['angsuran_view'] = 'pinjaman/angsuran_view';
 $route['pinjaman_create'] = 'pinjaman/pinjaman_create';
+$route['pinjaman_delete'] = 'pinjaman/pinjaman_delete';
+$route['pinjaman_edit'] = 'pinjaman/pinjaman_edit';
 $route['pinjaman_get'] = 'pinjaman/pinjaman_get';
 $route['pinjaman_lists'] = 'pinjaman/pinjaman_lists';
+$route['pinjaman_view'] = 'pinjaman/pinjaman_view';
 
 /* SIMPANAN */
 $route['simpanan_create'] = 'simpanan/simpanan_create';
+$route['simpanan_delete'] = 'simpanan/simpanan_delete';
 $route['simpanan_detail_create'] = 'simpanan/simpanan_detail_create';
+$route['simpanan_detail_delete'] = 'simpanan/simpanan_detail_delete';
+$route['simpanan_detail_edit'] = 'simpanan/simpanan_detail_edit';
 $route['simpanan_detail_get'] = 'simpanan/simpanan_detail_get';
 $route['simpanan_detail_lists'] = 'simpanan/simpanan_detail_lists';
+$route['simpanan_edit'] = 'simpanan/simpanan_edit';
 $route['simpanan_get'] = 'simpanan/simpanan_get';
 $route['simpanan_lists'] = 'simpanan/simpanan_lists';
 
 /* USER */
 $route['admin_create'] = 'user/admin_create';
+$route['admin_delete'] = 'user/admin_delete';
+$route['admin_edit'] = 'user/admin_edit';
 $route['admin_get'] = 'user/admin_get';
 $route['admin_lists'] = 'user/admin_lists';
+$route['admin_view'] = 'user/admin_view';
 $route['anggota_create'] = 'user/anggota_create';
+$route['anggota_delete'] = 'user/anggota_delete';
+$route['anggota_edit'] = 'user/anggota_edit';
 $route['anggota_get'] = 'user/anggota_get';
 $route['anggota_lists'] = 'user/anggota_lists';
+$route['anggota_view'] = 'user/anggota_view';

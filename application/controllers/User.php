@@ -10,6 +10,7 @@ class User extends CI_Controller {
 		$this->load->model('admin_tipe_model');
 		$this->load->model('anggota_model');
 		$this->load->model('anggota_tipe_model');
+		$this->load->model('kota_model');
 		$this->load->model('provinsi_model');
 		$this->load->model('simpanan_model');
 		
@@ -67,6 +68,106 @@ class User extends CI_Controller {
 		}
 	}
 
+    function admin_delete()
+    {
+        $data = array();
+        $data['id'] = $this->input->post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+
+        $get = $this->admin_model->info(array('id_admin' => $data['id']));
+
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('delete') == TRUE)
+            {
+                $query = $this->admin_model->delete($data['id']);
+
+                if ($query > 0)
+                {
+                    $response = array('text' => 'Success', 'type' => 'success', 'title' => 'Delete');
+                }
+                else
+                {
+                    $response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Delete');
+                }
+
+                echo json_encode($response);
+                exit();
+            }
+            else
+            {
+                $this->load->view('delete_confirm', $data);
+            }
+        }
+        else
+        {
+            echo "Data Not Found";
+        }
+    }
+
+    function admin_edit()
+    {
+		$data = array();
+        $data['id'] = $this->input->get_post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+		
+        $get = $this->admin_model->info(array('id_admin' => $data['id']));
+		
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('submit') == TRUE)
+            {
+				$param = array();
+				if ($this->input->post('password') != '')
+				{
+					$param['password'] = md5($this->input->post('password'));
+				}
+				
+				$param['id_admin_tipe'] = $this->input->post('id_admin_tipe');
+				$param['nama'] = $this->input->post('nama');
+				$param['email'] = $this->input->post('email');
+				$param['username'] = $this->input->post('username');
+				$param['jenis_kelamin'] = $this->input->post('jenis_kelamin');
+				$param['tempat_lahir'] = $this->input->post('tempat_lahir');
+				$param['tanggal_lahir'] = date('Y-m-d', strtotime($this->input->post('tanggal_lahir')));
+				$param['alamat'] = $this->input->post('alamat');
+				$param['telp'] = $this->input->post('telp');
+				$param['updated_date'] = date('Y-m-d H:i:s');
+				$query = $this->admin_model->update($data['id'], $param);
+
+				if ($query > 0)
+				{
+					$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Edit');
+				}
+				else
+				{
+					$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Edit');
+				}
+	
+				echo json_encode($response);
+				exit();
+            }
+			else
+			{
+				// Tipe admin
+				$admin_tipe_lists = array();
+				$query = $this->admin_tipe_model->lists(array());
+				
+				if ($query->num_rows() > 0)
+				{
+					$admin_tipe_lists = $query->result();
+				}
+				
+				$data['code_jenis_kelamin'] = $this->config->item('code_jenis_kelamin');
+				$data['admin_tipe_lists'] = (object) $admin_tipe_lists;
+				$data['result'] = $get->row();
+				$this->load->view('user/admin_edit', $data);
+			}
+        }
+    }
+
 	function admin_get()
 	{
 		$page = $this->input->post('page') ? $this->input->post('page') : 1;
@@ -116,6 +217,33 @@ class User extends CI_Controller {
 		
 		$this->load->view('templates/frame', $data);
 	}
+    
+    function admin_view()
+    {
+		$id = $this->input->post('id');
+		$get = $this->admin_model->info(array('id_admin' => $id));
+		
+		if ($get->num_rows() > 0)
+		{
+			$result = $get->row();
+			$code_jenis_kelamin = $this->config->item('code_jenis_kelamin');
+			
+			$data = array();
+			$data['tipe_nama'] = $result->tipe_nama;
+			$data['nama'] = $result->nama;
+			$data['email'] = $result->email;
+			$data['username'] = $result->username;
+			$data['jenis_kelamin'] = $code_jenis_kelamin[$result->jenis_kelamin];
+			$data['tempat_tanggal_lahir'] = $result->tempat_lahir.', '.date('d M Y', strtotime($result->tanggal_lahir));
+			$data['alamat'] = $result->alamat;
+			$data['telp'] = $result->telp;
+			$this->load->view('user/admin_view', $data);
+		}
+		else
+		{
+			echo "Data Not Found";
+		}
+    }
 	
 	function anggota_create()
 	{
@@ -178,6 +306,129 @@ class User extends CI_Controller {
 		}
 	}
 
+    function anggota_delete()
+    {
+        $data = array();
+        $data['id'] = $this->input->post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+
+        $get = $this->anggota_model->info(array('id_anggota' => $data['id']));
+
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('delete') == TRUE)
+            {
+                $query = $this->anggota_model->delete($data['id']);
+
+                if ($query > 0)
+                {
+                    $response = array('text' => 'Success', 'type' => 'success', 'title' => 'Delete');
+                }
+                else
+                {
+                    $response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Delete');
+                }
+
+                echo json_encode($response);
+                exit();
+            }
+            else
+            {
+                $this->load->view('delete_confirm', $data);
+            }
+        }
+        else
+        {
+            echo "Data Not Found";
+        }
+    }
+
+    function anggota_edit()
+    {
+		$data = array();
+        $data['id'] = $this->input->get_post('id');
+        $data['action'] = $this->input->post('action');
+        $data['grid'] = $this->input->post('grid');
+		
+        $get = $this->anggota_model->info(array('id_anggota' => $data['id']));
+		
+        if ($get->num_rows() > 0)
+        {
+            if ($this->input->post('submit') == TRUE)
+            {
+				$param = array();
+				$param['id_anggota_tipe'] = $this->input->post('id_anggota_tipe');
+				$param['id_kota'] = $this->input->post('id_kota');
+				$param['no_anggota'] = $this->input->post('no_anggota');
+				$param['nama'] = $this->input->post('nama');
+				$param['jenis_kelamin'] = $this->input->post('jenis_kelamin');
+				$param['tempat_lahir'] = $this->input->post('tempat_lahir');
+				$param['tanggal_lahir'] = date('Y-m-d', strtotime($this->input->post('tanggal_lahir')));
+				$param['alamat'] = $this->input->post('alamat');
+				$param['kode_pos'] = $this->input->post('kode_pos');
+				$param['telp'] = $this->input->post('telp');
+				$param['updated_date'] = date('Y-m-d H:i:s');
+				$query = $this->anggota_model->update($data['id'], $param);
+
+				if ($query > 0)
+				{
+					$response = array('text' => 'Success', 'type' => 'success', 'title' => 'Edit');
+				}
+				else
+				{
+					$response = array('text' => 'Failed', 'type' => 'error', 'title' => 'Edit');
+				}
+	
+				echo json_encode($response);
+				exit();
+            }
+			else
+			{
+				// Tipe anggota - list
+				$anggota_tipe_lists = array();
+				$query3 = $this->anggota_tipe_model->lists(array());
+				
+				if ($query3->num_rows() > 0)
+				{
+					$anggota_tipe_lists = $query3->result();
+				}
+				
+				// Provinsi -> list
+				$provinsi_lists = array();
+				$query2 = $this->provinsi_model->lists(array('limit' => 40));
+				
+				if ($query2->num_rows() > 0)
+				{
+					$provinsi_lists = $query2->result();
+				}
+				
+				// Get id_provinsi
+				$query4 = $this->kota_model->info(array('id_kota' => $get->row()->id_kota));
+				
+				if ($query4->num_rows() > 0)
+				{
+					$data['id_provinsi'] = $query4->row()->id_provinsi;
+					
+					// Kota - list
+					$query5 = $this->kota_model->lists(array('limit' => 40, 'id_provinsi' => $data['id_provinsi']));
+					
+					if ($query5->num_rows() > 0)
+					{
+						$kota_lists = $query5->result();
+					}
+				}
+				
+				$data['kota_lists'] = (object) $kota_lists;
+				$data['provinsi_lists'] = (object) $provinsi_lists;
+				$data['anggota_tipe_lists'] = (object) $anggota_tipe_lists;
+				$data['code_jenis_kelamin'] = $this->config->item('code_jenis_kelamin');
+				$data['result'] = $get->row();
+				$this->load->view('user/anggota_edit', $data);
+			}
+        }
+    }
+
 	function anggota_get()
 	{
 		$page = $this->input->post('page') ? $this->input->post('page') : 1;
@@ -200,7 +451,7 @@ class User extends CI_Controller {
 
         foreach ($query->result() as $row)
         {
-            $action = '<a title="View" id="'.$row->id_anggota.'" class="view '.$row->id_anggota.'-view" href="#"><i class="fa fa-folder-open h4 text-warning"></i></a>&nbsp;
+            $action = '<a title="View" id="'.$row->id_anggota.'" class="view '.$row->id_anggota.'-view" href="#"><i class="fa fa-folder-open h4 text-success"></i></a>&nbsp;
 						<a title="Edit" id="'.$row->id_anggota.'" class="edit '.$row->id_anggota.'-edit" href="#"><i class="fa fa-pencil h4"></i></a>&nbsp;
                         <a title="Delete" id="'.$row->id_anggota.'" class="delete '.$row->id_anggota.'-delete" href="#"><i class="fa fa-times h4 text-danger"></i></a>';
 					
@@ -239,4 +490,32 @@ class User extends CI_Controller {
 		
 		$this->load->view('templates/frame', $data);
 	}
+    
+    function anggota_view()
+    {
+		$id = $this->input->post('id');
+		$get = $this->anggota_model->info(array('id_anggota' => $id));
+		
+		if ($get->num_rows() > 0)
+		{
+			$result = $get->row();
+			$code_jenis_kelamin = $this->config->item('code_jenis_kelamin');
+			
+			$data = array();
+			$data['no_anggota'] = $result->no_anggota;
+			$data['tipe_nama'] = $result->tipe_nama;
+			$data['nama'] = $result->nama;
+			$data['jenis_kelamin'] = $code_jenis_kelamin[$result->jenis_kelamin];
+			$data['tempat_tanggal_lahir'] = $result->tempat_lahir.', '.date('d M Y', strtotime($result->tanggal_lahir));
+			$data['alamat'] = $result->alamat;
+			$data['kode_pos'] = $result->kode_pos;
+			$data['kota_nama'] = $result->kota_nama;
+			$data['telp'] = $result->telp;
+			$this->load->view('user/anggota_view', $data);
+		}
+		else
+		{
+			echo "Data Not Found";
+		}
+    }
 }

@@ -17,6 +17,13 @@ class Admin_model extends CI_Model {
 		return $query;
     }
     
+    function delete($id)
+    {
+        $this->db->where($this->table_id, $id);
+        $query = $this->db->delete($this->table);
+        return $query;
+    }
+    
     function info($param)
     {
         $where = array();
@@ -34,16 +41,19 @@ class Admin_model extends CI_Model {
         }
         if (isset($param['nama']) == TRUE && $param['nama'] != '')
         {
-            $where += array('nama' => $param['nama'] && $param['id_admin'] != '');
+            $where += array($this->table.'.nama' => $param['nama']);
         }
         if (isset($param['email']) == TRUE && $param['email'] != '')
         {
             $where += array('email' => $param['email']);
         }
         
-        $this->db->select($this->table_id.', id_admin_tipe, nama, email, username, password, jenis_kelamin,
-						  tempat_lahir, tanggal_lahir, alamat, telp, foto, created_date, updated_date');
+        $this->db->select($this->table_id.', '.$this->table.'.id_admin_tipe, '.$this->table.'.nama,
+						  email, username, password, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat,
+						  telp, foto, '.$this->table.'.created_date, '.$this->table.'.updated_date,
+						  admin_tipe.nama AS tipe_nama');
         $this->db->from($this->table);
+        $this->db->join('admin_tipe', $this->table.'.id_admin_tipe = admin_tipe.id_admin_tipe', 'left');
         $this->db->where($where);
         $query = $this->db->get();
         return $query;

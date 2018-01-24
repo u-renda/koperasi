@@ -79,19 +79,16 @@
 							<tr class="h4 text-dark">
 								<th id="cell-desc" class="text-semibold">Keterangan</th>
 								<th id="cell-price" class="text-center text-semibold"></th>
-								<th id="cell-total" class="text-center text-semibold"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>Pinjaman Pokok</td>
-								<td class="text-center"><?php echo 'Rp '.number_format($angsuran->pokok, 0, ',', '.'); ?></td>
-								<td class="text-center"></td>
+								<td class="text-right"><?php echo 'Rp '.number_format($angsuran->pokok, 0, ',', '.'); ?></td>
 							</tr>
 							<tr>
 								<td>Bunga</td>
-								<td class="text-center"><?php echo 'Rp '.number_format($angsuran->pokok, 0, ',', '.'); ?></td>
-								<td class="text-center"></td>
+								<td class="text-right"><?php echo 'Rp '.number_format($angsuran->bunga, 0, ',', '.'); ?></td>
 							</tr>
 						</tbody>
 					</table>
@@ -104,7 +101,7 @@
 								<tbody>
 									<tr class="b-top-none h4">
 										<td colspan="2">Jumlah Angsuran</td>
-										<td class="text-left"><?php echo 'Rp '.number_format($angsuran->jumlah_angsuran, 0, ',', '.'); ?></td>
+										<td class="text-right"><?php echo 'Rp '.number_format($angsuran->jumlah_angsuran, 0, ',', '.'); ?></td>
 									</tr>
 								</tbody>
 							</table>
@@ -114,6 +111,7 @@
 			</div>
 
 			<div class="text-right mr-lg">
+				<a href="<?php echo $this->config->item('link_angsuran_lists'); ?>" class="btn btn-default ml-sm">Kembali</a>
 				<a href="<?php echo $this->config->item('link_angsuran_print').'?id_angsuran='.$angsuran->id_angsuran; ?>" target="_blank" class="btn btn-primary ml-sm"><i class="fa fa-print"></i> Print</a>
 			</div>
 		</div>

@@ -17,6 +17,13 @@ class Anggota_model extends CI_Model {
 		return $query;
     }
     
+    function delete($id)
+    {
+        $this->db->where($this->table_id, $id);
+        $query = $this->db->delete($this->table);
+        return $query;
+    }
+    
     function info($param)
     {
         $where = array();
@@ -26,17 +33,21 @@ class Anggota_model extends CI_Model {
         }
         if (isset($param['nama']) == TRUE && $param['nama'] != '')
         {
-            $where += array('nama' => $param['nama']);
+            $where += array($this->table.'.nama' => $param['nama']);
         }
         if (isset($param['id_anggota']) == TRUE && $param['id_anggota'] != '')
         {
             $where += array($this->table_id => $param['id_anggota']);
         }
         
-        $this->db->select($this->table_id.', id_anggota_tipe, id_kota, no_anggota, nama, jenis_kelamin,
-						  tempat_lahir, tanggal_lahir, alamat, kode_pos, telp, created_date,
-						  updated_date');
+        $this->db->select($this->table_id.', '.$this->table.'.id_anggota_tipe,
+						  '.$this->table.'.id_kota, no_anggota, '.$this->table.'.nama, jenis_kelamin,
+						  tempat_lahir, tanggal_lahir, alamat, kode_pos, telp,
+						  '.$this->table.'.created_date, '.$this->table.'.updated_date,
+						  anggota_tipe.nama AS tipe_nama, kota.nama AS kota_nama');
         $this->db->from($this->table);
+        $this->db->join('kota', $this->table.'.id_kota = kota.id_kota', 'left');
+        $this->db->join('anggota_tipe', $this->table.'.id_anggota_tipe = anggota_tipe.id_anggota_tipe', 'left');
         $this->db->where($where);
         $query = $this->db->get();
         return $query;
@@ -72,4 +83,11 @@ class Anggota_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+	
+	function update($id, $param)
+	{
+		$this->db->where($this->table_id, $id);
+        $query = $this->db->update($this->table, $param);
+        return $query;
+	}
 }

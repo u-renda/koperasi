@@ -32,6 +32,12 @@ var newPathname = winOrigin + "/" + winPath[1] + "/";
 			$('#provinsi').addClass('nav-active');
             $('#master_data').addClass('nav-active nav-expanded');
 		}
+		
+		// Untuk angsuran invoice
+		if (winPath[2] === 'angsuran_invoice') {
+			$('#angsuran').addClass('nav-active');
+            $('#masterPinjaman').addClass('nav-active nav-expanded');
+		}
     });
 
 }).apply(this, [jQuery]);

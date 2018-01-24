@@ -17,6 +17,13 @@ class Pinjaman_model extends CI_Model {
 		$id = $this->db->insert_id();
 		return $id;
     }
+    
+    function delete($id)
+    {
+        $this->db->where($this->table_id, $id);
+        $query = $this->db->delete($this->table);
+        return $query;
+    }
 	
 	function info($param)
 	{
@@ -26,11 +33,15 @@ class Pinjaman_model extends CI_Model {
 			$where += array($this->table_id => $param['id_pinjaman']);
 		}
 		
-		$this->db->select($this->table_id.', '.$this->table.'.id_anggota, id_pinjaman_tipe, no_pinjaman,
-						  tgl_pinjam, jumlah_pinjaman, kali_angsuran, bunga, tgl_jatuh_tempo, status,
-						  '.$this->table.'.created_date, '.$this->table.'.updated_date, nama');
+		$this->db->select($this->table_id.', '.$this->table.'.id_anggota,
+						  '.$this->table.'.id_pinjaman_tipe, no_pinjaman, tgl_pinjam, jumlah_pinjaman,
+						  kali_angsuran, bunga, tgl_jatuh_tempo, status, '.$this->table.'.created_date,
+						  '.$this->table.'.updated_date, anggota.nama AS nama,
+						  pinjaman_tipe.nama AS tipe_nama');
         $this->db->from($this->table);
         $this->db->join('anggota', $this->table.'.id_anggota = anggota.id_anggota', 'left');
+        $this->db->join('pinjaman_tipe', $this->table.'.id_pinjaman_tipe = pinjaman_tipe.id_pinjaman_tipe', 'left');
+		$this->db->where($where);
         $query = $this->db->get();
         return $query;
 	}
@@ -64,4 +75,11 @@ class Pinjaman_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+	
+	function update($id, $param)
+	{
+		$this->db->where($this->table_id, $id);
+        $query = $this->db->update($this->table, $param);
+        return $query;
+	}
 }

@@ -17,6 +17,13 @@ class Kota_model extends CI_Model {
 		return $query;
     }
     
+    function delete($id)
+    {
+        $this->db->where($this->table_id, $id);
+        $query = $this->db->delete($this->table);
+        return $query;
+    }
+    
     function info($param)
     {
         $where = array();
@@ -27,6 +34,10 @@ class Kota_model extends CI_Model {
         if (isset($param['id_provinsi']) == TRUE && $param['id_provinsi'] != '')
         {
             $where += array('id_provinsi' => $param['id_provinsi']);
+        }
+        if (isset($param['id_kota']) == TRUE && $param['id_kota'] != '')
+        {
+            $where += array($this->table_id => $param['id_kota']);
         }
         
         $this->db->select($this->table_id.', id_provinsi, nama, created_date, updated_date');
@@ -69,4 +80,11 @@ class Kota_model extends CI_Model {
         $query = $this->db->get();
         return $query;
     }
+	
+	function update($id, $param)
+	{
+		$this->db->where($this->table_id, $id);
+        $query = $this->db->update($this->table, $param);
+        return $query;
+	}
 }
